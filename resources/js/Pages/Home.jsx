@@ -1,8 +1,12 @@
 import React from 'react'
+import AppLayouts from '../Layouts/AppLayouts'
+import Hero from '../Components/Hero'
 
 const Home = () => {
   return (
-    <div className='text-3xl text-orange-500'>Home</div>
+    <AppLayouts>
+        <Hero/>
+    </AppLayouts>
   )
 }
 
