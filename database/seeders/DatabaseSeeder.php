@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\ShortContent;
 use App\Models\User;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
@@ -22,6 +23,11 @@ class DatabaseSeeder extends Seeder
         $this->call([
             HeroContentSeeder::class,
             AboutContentSeeder::class,
+            ShortContentSeeder::class,
+            UpcomingContentSeeder::class,
+            ContactContentSeeder::class,
+            SiteSettingSeeder::class,
+            SocialMediaSeeder::class,
         ]);
     }
 }
