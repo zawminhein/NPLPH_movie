@@ -28,6 +28,8 @@ class DatabaseSeeder extends Seeder
             ContactContentSeeder::class,
             SiteSettingSeeder::class,
             SocialMediaSeeder::class,
+            UserRolePermissionSeeder::class,
+            PermissionSeeder::class
         ]);
     }
 }

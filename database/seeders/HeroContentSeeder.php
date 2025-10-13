@@ -14,8 +14,6 @@ class HeroContentSeeder extends Seeder
     public function run(): void
     {
         $hero_content = [
-            'title_en' => 'NGAPYANLARPYIHYAE',
-            'title_mm' => 'ငါပြန်လာပြီဟေ့',
             'short_desc_en' => '~ A handcrafted collection of cinematic masterpieces ~',
             'short_desc_mm' => 'အထိမ်းအမှတ် ရုပ်ရှင်',
             'long_desc_en' => "Discover timeless films, read passionate reviews, and dive deep into the art of cinema. Every movie tells a story, and we're here to share those stories with you.",

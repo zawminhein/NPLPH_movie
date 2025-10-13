@@ -13,8 +13,6 @@ return new class extends Migration
     {
         Schema::create('hero_contents', function (Blueprint $table) {
             $table->id();
-            $table->string('title_en')->nullable(false);
-            $table->string('title_mm')->nullable();
             $table->string('short_desc_en')->nullable(false);
             $table->string('short_desc_mm')->nullable();
             $table->text('long_desc_en')->nullable(false);
