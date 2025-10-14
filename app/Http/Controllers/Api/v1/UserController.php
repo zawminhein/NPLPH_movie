@@ -5,72 +5,50 @@ namespace App\Http\Controllers\Api\v1;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\UserRequest;
 use App\Models\User;
+use App\Services\UserService;
+use App\Traits\ApiResponseTrait;
 use Illuminate\Http\Request;
 
 class UserController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
+    use ApiResponseTrait;
+
+    protected $userService;
+
+    public function __construct(UserService $userService)
+    {
+        $this->userService = $userService;
+    }
+
     public function index()
     {
-        //
+        $users = $this->userService->getAllUsers();
+        return $this->successResponse($users, 'Users fetched successfully');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(UserRequest $request)
     {
-        $data = $request->all();
-
-        $user = User::create([
-            'name' => $data['name'],
-            'email' => $data['email'],
-            'password' => bcrypt($data['password']),
-        ]);
-
-        if (!empty($data['role'])) {
-            $user->assignRole($data['role']);
-        }
-
-        return response()->json($user, 201);
+        $user = $this->userService->createUser($request->validated());
+        return $this->successResponse($user, 'User created successfully', 201);
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
+    public function show($id)
     {
-        return response()->json(User::find($id));
+        $user = $this->userService->getUser($id);
+        return $this->successResponse($user, 'User details fetched successfully');
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
+    public function update(Request $request, $id)
     {
-        $data = $request->all();
-
-        $user = User::find($id);
-
-        $user->update([
-            'name' => $data['name'],
-            'email' => $data['email'],
-            'password' => bcrypt($data['password']),
-        ]);
-
-        return response()->json($user, 200);
+        $user = User::findOrFail($id);
+        $user = $this->userService->updateUser($user, $request->all());
+        return $this->successResponse($user, 'User updated successfully');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
+    public function destroy($id)
     {
-        $user = User::find($id);
-        $user->delete();
-
-        return response()->json(null, 204);
+        $user = User::findOrFail($id);
+        $this->userService->deleteUser($user);
+        return $this->successResponse(null, 'User deleted successfully', 204);
     }
 }
