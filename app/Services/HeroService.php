@@ -6,8 +6,8 @@ use App\Models\HeroContent;
 
 class HeroService
 {
-    public function getHeroContent()
+    public function getHeroContent($id)
     {
-        return HeroContent::first();
+        return HeroContent::find($id);
     }
 }

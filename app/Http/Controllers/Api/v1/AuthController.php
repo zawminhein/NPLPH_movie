@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api\v1;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\UserResource;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\User;
@@ -30,11 +31,12 @@ class AuthController extends Controller
 
         // Create new token for this device
         $token = $user->createToken('mobile_token')->plainTextToken;
-
+        $userResource = new UserResource($user);
         return $this->successResponse([
             'token_type' => 'Bearer',
             'access_token' => $token,
-            'user' => $user,
+            'user' => $userResource,
+            'permissions' => $user->getPermissionsViaRoles()->pluck('name'),
         ], 'Login successful');
     }
 

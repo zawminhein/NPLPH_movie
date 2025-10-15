@@ -24,7 +24,7 @@ class UserRolePermissionSeeder extends Seeder
         // 2️⃣ Create Super Admin role (with sanctum guard)
         $role = Role::firstOrCreate([
             'name' => 'super admin',
-            'guard_name' => 'sanctum',
+            'guard_name' => 'web',
         ]);
 
         // 3️⃣ Assign all permissions to the role

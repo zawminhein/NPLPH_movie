@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api\v1;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\RoleResource;
 use App\Services\RoleService;
 use App\Traits\ApiResponseTrait;
 use Illuminate\Http\Request;
@@ -14,16 +15,16 @@ class RoleController extends Controller
 
     protected $roleService;
 
-    // public function __construct(RoleService $roleService)
-    // {
-    //     $this->roleService = $roleService;
-    // }
+    public function __construct(RoleService $roleService)
+    {
+        $this->roleService = $roleService;
+    }
 
     public function index()
     {
         $roles = $this->roleService->getAllRoles();
-
-        return $this->successResponse($roles, 'Roles fetched successfully');
+        $rolesResource = RoleResource::collection($roles);
+        return $this->successResponse($rolesResource, 'Roles fetched successfully');
     }
 
 
@@ -35,13 +36,15 @@ class RoleController extends Controller
         ]);
 
         $role = $this->roleService->createRole($data);
-        return $this->successResponse($role, 'Role created successfully', 201);
+        $roleResource = new RoleResource($role);
+        return $this->successResponse($roleResource, 'Role created successfully', 201);
     }
 
     public function show($id)
     {
         $role = Role::findOrFail($id);
-        return $this->successResponse($role, 'Role fetched successfully');
+        $roleResource = new RoleResource($role);
+        return $this->successResponse($roleResource, 'Role fetched successfully');
     }
 
     public function update(Request $request, $id)
@@ -54,7 +57,8 @@ class RoleController extends Controller
         ]);
 
         $role = $this->roleService->updateRole($role, $data);
-        return $this->successResponse($role, 'Role updated successfully');
+        $roleResource = new RoleResource($role);
+        return $this->successResponse($roleResource, 'Role updated successfully');
     }
 
     public function destroy($id)

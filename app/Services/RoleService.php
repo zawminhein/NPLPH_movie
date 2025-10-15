@@ -27,7 +27,7 @@ class RoleService
      */
     public function createRole($data)
     {
-        $role = Role::create(['name' => $data['name']]);
+        $role = Role::create(['name' => $data['name'], 'guard_name' => 'web']);
 
         if (!empty($data['permissions'])) {
             $role->syncPermissions($data['permissions']);
