@@ -34,7 +34,13 @@ return [
     |
     */
 
-    'guard' => ['web', 'sanctum'],
+    'guard' => [
+        // 'web', 
+        // 'sanctum',
+
+        // Leave this array empty for Sanctum API authentication
+        // to prevent infinite loop issues with other guards.
+    ],
 
     /*
     |--------------------------------------------------------------------------

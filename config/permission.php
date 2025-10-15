@@ -1,5 +1,8 @@
 <?php
 
+use App\Models\Permission;
+use Termwind\Components\Span;
+
 return [
 
     'models' => [

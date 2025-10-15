@@ -14,16 +14,18 @@ class RoleController extends Controller
 
     protected $roleService;
 
-    public function __construct(RoleService $roleService)
-    {
-        $this->roleService = $roleService;
-    }
+    // public function __construct(RoleService $roleService)
+    // {
+    //     $this->roleService = $roleService;
+    // }
 
     public function index()
     {
         $roles = $this->roleService->getAllRoles();
+
         return $this->successResponse($roles, 'Roles fetched successfully');
     }
+
 
     public function store(Request $request)
     {

@@ -13,11 +13,11 @@ RateLimiter::for('api', function (Request $request) {
     return Limit::perMinute(60)->by($request->user()?->id ?: $request->ip());
 });
 
-Route::get('/', function () {
-    return response()->json([
-        'message' => 'API is running',
-    ]);
-});
+// Route::get('/', function () {
+//     return response()->json([
+//         'message' => 'API is running',
+//     ]);
+// });
 Route::prefix('v1')->group(function () {
     // Public route
     Route::post('/login', [AuthController::class, 'login']);
@@ -29,7 +29,7 @@ Route::prefix('v1')->group(function () {
 
         // User routes
         Route::get('/users', [UserController::class, 'index'])->middleware('permission:view_user');
-        Route::post('/users', [UserController::class, 'store'])->middleware('permission:create_user');
+        Route::post('/users', [UserController::class, 'store'])->middleware('permission:create_user|sanctum');
         Route::get('/users/{id}', [UserController::class, 'show'])->middleware('permission:view_user');
         Route::put('/users/{id}', [UserController::class, 'update'])->middleware('permission:update_user');
         Route::delete('/users/{id}', [UserController::class, 'destroy'])->middleware('permission:delete_user');
@@ -40,5 +40,11 @@ Route::prefix('v1')->group(function () {
         Route::get('/roles/{id}', [RoleController::class, 'show'])->middleware('permission:view_role');
         Route::put('/roles/{id}', [RoleController::class, 'update'])->middleware('permission:update_role');
         Route::delete('/roles/{id}', [RoleController::class, 'destroy'])->middleware('permission:delete_role');
+    });
+});
+
+Route::middleware('auth:sanctum')->group(function () {
+    Route::get('test',function(){
+        return 'test';
     });
 });
