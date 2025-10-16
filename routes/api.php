@@ -6,9 +6,15 @@ use Illuminate\Support\Facades\RateLimiter;
 use Illuminate\Cache\RateLimiting\Limit;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Api\v1\AuthController;
+use App\Http\Controllers\Api\v1\ContactController;
 use App\Http\Controllers\Api\v1\HeroController;
 use App\Http\Controllers\Api\v1\RoleController;
+use App\Http\Controllers\Api\v1\ShortController;
+use App\Http\Controllers\Api\v1\SiteSettingController;
+use App\Http\Controllers\Api\v1\SocialMediaController;
+use App\Http\Controllers\Api\v1\UpcomingController;
 use App\Http\Controllers\Api\v1\UserController;
+use Illuminate\Foundation\Console\UpCommand;
 
 // Define API rate limiter used by 'throttle:api'
 RateLimiter::for('api', function (Request $request) {
@@ -49,6 +55,26 @@ Route::prefix('v1')->group(function () {
         // AboutContent routes
         Route::get('/abouts/{id}', [AboutController::class, 'show'])->middleware('permission:about_view');
         Route::put('/abouts/{id}', [AboutController::class, 'update'])->middleware('permission:about_update');
+
+        //ShortContent routes
+        Route::get('/shorts/{id}', [ShortController::class, 'show'])->middleware('permission:short_view');
+        Route::put('/shorts/{id}', [ShortController::class, 'update'])->middleware('permission:short_update');
+
+        //UpcomingContent routes
+        Route::get('/upcomings/{id}', [UpcomingController::class, 'show'])->middleware('permission:upcoming_view');
+        Route::put('/upcomings/{id}', [UpcomingController::class, 'update'])->middleware('permission:upcoming_update');
+
+        //ContactContent routes
+        Route::get('/contacts/{id}', [ContactController::class, 'show'])->middleware('permission:contact_view');
+        Route::put('/contacts/{id}', [ContactController::class, 'update'])->middleware('permission:contact_update');
+
+        //SiteSettingContent routes
+        Route::get('/sitesettings/{id}', [SiteSettingController::class, 'show'])->middleware('permission:site_setting_view');
+        Route::put('/sitesettings/{id}', [SiteSettingController::class, 'update'])->middleware('permission:site_setting_update');
+
+        //SocialMediaContent routes
+        Route::get('/socialmedias/{id}', [SocialMediaController::class, 'show'])->middleware('permission:social_media_view');
+        Route::put('/socialmedias/{id}', [SocialMediaController::class, 'update'])->middleware('permission:social_media_update');
     });
 });
 
