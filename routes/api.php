@@ -75,6 +75,8 @@ Route::prefix('v1')->group(function () {
         //SocialMediaContent routes
         Route::get('/socialmedias/{id}', [SocialMediaController::class, 'show'])->middleware('permission:social_media_view');
         Route::put('/socialmedias/{id}', [SocialMediaController::class, 'update'])->middleware('permission:social_media_update');
+        
+        // testing
     });
 });
 
