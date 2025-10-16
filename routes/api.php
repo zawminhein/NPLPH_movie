@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Api\v1\AboutController;
+use App\Http\Controllers\APi\v1\ActivityController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\RateLimiter;
 use Illuminate\Cache\RateLimiting\Limit;
@@ -76,7 +77,12 @@ Route::prefix('v1')->group(function () {
         Route::get('/socialmedias/{id}', [SocialMediaController::class, 'show'])->middleware('permission:social_media_view');
         Route::put('/socialmedias/{id}', [SocialMediaController::class, 'update'])->middleware('permission:social_media_update');
         
-        // testing
+        //ActivityContent routes
+        Route::get('/activities', [ActivityController::class, 'index'])->middleware('permission:activity_view');
+        Route::get('/activities/{id}', [ActivityController::class, 'show'])->middleware('permission:activity_view');
+        Route::post('/activities', [ActivityController::class, 'store'])->middleware('permission:activity_create');
+        Route::put('/activities/{id}', [ActivityController::class, 'update'])->middleware('permission:activity_update');
+        Route::delete('/activities/{id}', [ActivityController::class, 'destroy'])->middleware('permission:activity_delete');
     });
 });
 
