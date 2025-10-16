@@ -1,13 +1,14 @@
 <?php
 
+use App\Http\Controllers\Api\v1\AboutController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\RateLimiter;
 use Illuminate\Cache\RateLimiting\Limit;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Api\v1\AuthController;
+use App\Http\Controllers\Api\v1\HeroController;
 use App\Http\Controllers\Api\v1\RoleController;
 use App\Http\Controllers\Api\v1\UserController;
-use App\Http\Controllers\HeroController;
 
 // Define API rate limiter used by 'throttle:api'
 RateLimiter::for('api', function (Request $request) {
@@ -25,7 +26,6 @@ Route::prefix('v1')->group(function () {
 
     // Protected routes (require Bearer token)
     Route::middleware('auth:sanctum', 'throttle:api')->group(function () {
-        Route::get('/me', [AuthController::class, 'me']);
         Route::post('/logout', [AuthController::class, 'logout']);
 
         // User routes
@@ -44,6 +44,11 @@ Route::prefix('v1')->group(function () {
 
         // HeroContent routes
         Route::get('/heros/{id}', [HeroController::class, 'show'])->middleware('permission:hero_view');
+        Route::put('/heros/{id}', [HeroController::class, 'update'])->middleware('permission:hero_update');
+
+        // AboutContent routes
+        Route::get('/abouts/{id}', [AboutController::class, 'show'])->middleware('permission:about_view');
+        Route::put('/abouts/{id}', [AboutController::class, 'update'])->middleware('permission:about_update');
     });
 });
 

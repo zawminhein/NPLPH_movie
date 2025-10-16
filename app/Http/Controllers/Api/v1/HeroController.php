@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Api\v1;
 
+use App\Http\Controllers\Controller;
 use App\Http\Resources\HeroResource;
 use App\Services\HeroService;
 use App\Traits\ApiResponseTrait;
@@ -20,5 +21,12 @@ class HeroController extends Controller
         $hero = $this->heroService->getHeroContent($id);
         $heroResource = new HeroResource($hero);
         return $this->successResponse($heroResource, 'Hero fetched successfully');
+    }
+
+    public function update($id, Request $request)
+    {
+        $hero = $this->heroService->updateHeroContent($id, $request->all());
+        $heroResource = new HeroResource($hero);
+        return $this->successResponse($heroResource, 'Hero updated successfully');
     }
 }

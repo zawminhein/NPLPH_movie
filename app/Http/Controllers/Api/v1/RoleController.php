@@ -44,7 +44,7 @@ class RoleController extends Controller
     {
         $role = Role::findOrFail($id);
         $roleResource = new RoleResource($role);
-        return $this->successResponse($roleResource, 'Role fetched successfully');
+        return $this->successResponse($roleResource, 'Role details fetched successfully');
     }
 
     public function update(Request $request, $id)
@@ -65,6 +65,6 @@ class RoleController extends Controller
     {
         $role = Role::findOrFail($id);
         $this->roleService->deleteRole($role);
-        return $this->successResponse(null, 'Role deleted successfully', 204);
+        return $this->successResponse('message', 'Role deleted successfully');
     }
 }

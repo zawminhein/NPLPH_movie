@@ -54,6 +54,6 @@ class UserController extends Controller
     {
         $user = User::findOrFail($id);
         $this->userService->deleteUser($user);
-        return $this->successResponse(null, 'User deleted successfully', 204);
+        return $this->successResponse('message', 'User deleted successfully');
     }
 }

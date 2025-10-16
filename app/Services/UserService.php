@@ -35,7 +35,6 @@ class UserService
     {
         $updateData = [
             'name' => $data['name'],
-            'email' => $data['email'],
         ];
 
         if(!empty($data['password'])){
