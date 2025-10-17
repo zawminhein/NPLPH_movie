@@ -2,12 +2,12 @@ import React from 'react'
 import AppLayouts from '../Layouts/AppLayouts'
 import Hero from '../Components/Hero'
 
-const Home = () => {
+export default function Home({ translations, heroContent, locale }) {
+  console.log('Home props:', { translations, heroContent, locale });
+
   return (
     <AppLayouts>
-        <Hero/>
+      <Hero translations={translations} heroContent={heroContent} locale={locale} />
     </AppLayouts>
   )
 }
-
-export default Home

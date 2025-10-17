@@ -13,6 +13,7 @@ class HeroContentSeeder extends Seeder
      */
     public function run(): void
     {
+
         $hero_content = [
             'short_desc_en' => '~ A handcrafted collection of cinematic masterpieces ~',
             'short_desc_mm' => 'အထိမ်းအမှတ် ရုပ်ရှင်',
