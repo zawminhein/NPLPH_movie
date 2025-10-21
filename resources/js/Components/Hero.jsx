@@ -42,7 +42,23 @@ const Hero = ({ translations, heroContent, locale }) => {
     >
       <div className="bg-black/50 w-full h-full absolute top-0 left-0"></div> {/* Overlay */}
 
-      <div className="absolute inset-0 flex flex-col items-center justify-center text-center gap-6 px-4">
+      <div className="absolute inset-0 flex flex-col items-center justify-center text-center gap-6">
+        <div className='flex items-center w-full'>
+          <div className="flex-grow h-[2px] bg-[#FFF7ED]" />
+          <div className="flex space-x-3 px-4 items-center">
+            <a href="#">
+              <img src="/images/hero_section/facebook.png" alt="Facebook" className="w-6 h-6 sm:w-8 sm:h-8"/>
+            </a>
+            <a href="#">
+              <img src="/images/hero_section/youtube-filled.png" alt="Youtube" className='w-6 h-6 sm:w-8 sm:h-8'/>
+            </a>
+            <a href="#">
+              <img src="/images/hero_section/tiktok-solid.png" alt="Tiktok" className='w-6 h-6 sm:w-8 sm:h-8'/>
+            </a>
+          </div>
+          <div className="flex-grow h-[2px] bg-[#FFF7ED]" />
+        </div>
+
         <h1 className="font-bold text-[#FEF3C6] text-[35px] sm:text-5xl md:text-6xl mt-6 drop-shadow-lg">
           {title}
         </h1>
@@ -67,7 +83,7 @@ const Hero = ({ translations, heroContent, locale }) => {
           />
           <Link
             href="#explore"
-            className="bg-[#F24F01] w-[152px] h-[45px] rounded-md text-white hover:bg-[#d94301] px-6 py-3 transition text-center"
+            className="bg-[#F24F01] w-[152px] h-[45px] rounded-md text-white hover:bg-[#d94301] py-2 transition text-center"
           >
             Explore Now !
           </Link>

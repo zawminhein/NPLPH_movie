@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api\v1;
 
 use App\Http\Controllers\Controller;
 use App\Http\Resources\UserResource;
+use App\Models\SiteSetting;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\User;
@@ -37,6 +38,7 @@ class AuthController extends Controller
             'access_token' => $token,
             'user' => $userResource,
             'permissions' => $user->getPermissionsViaRoles()->pluck('name'),
+            'sitesettings' => SiteSetting::all(),
         ], 'Login successful');
     }
 

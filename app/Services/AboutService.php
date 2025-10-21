@@ -6,6 +6,11 @@ use App\Models\AboutContent;
 
 class AboutService
 {
+    public function getAllAboutContent()
+    {
+        $about = AboutContent::first();
+        return $about;
+    }
     public function getAboutContent($id)
     {
         $about = AboutContent::find($id);

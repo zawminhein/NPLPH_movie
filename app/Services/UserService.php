@@ -37,6 +37,10 @@ class UserService
             'name' => $data['name'],
         ];
 
+        if(!empty($data['email'])) {
+            $updateData['email'] = $data['email'];
+        }
+
         if(!empty($data['password'])){
             $updateData['password'] = Hash::make($data['password']);
         }

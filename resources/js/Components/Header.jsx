@@ -12,7 +12,7 @@ const Header = () => {
                     {/* <!-- Logo --> */}
                     <a
                         href="#home"
-                        className="font px-2 text-2xl sm:text-3xl lg:text-[35px] font-bold tracking-tight"
+                        className="font text-2xl sm:text-3xl lg:text-[35px] font-bold tracking-tight"
                     >
                         NGAPYANLARPYIHYAE
                     </a>
