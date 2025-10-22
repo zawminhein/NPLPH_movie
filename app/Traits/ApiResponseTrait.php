@@ -33,6 +33,21 @@ trait ApiResponseTrait
         return response()->json($response, $status);
     }
 
+    protected function paginationResponse($paginator, string $message = 'Success')
+    {
+        return response()->json([
+            'success' => true,
+            'message' => $message,
+            'data' => $paginator->items(),
+            // 'meta' => [
+            //     'current_page' => $paginator->currentPage(),
+            //     'per_page' => $paginator->perPage(),
+            //     'total' => $paginator->total(),
+            //     'last_page' => $paginator->lastPage(),
+            // ]
+        ]);
+    }
+
     /**
      * Paginated response (optional)
      */

@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Api\v1\AuthController;
 use App\Http\Controllers\Api\v1\ContactController;
 use App\Http\Controllers\Api\v1\HeroController;
+use App\Http\Controllers\Api\v1\PermissionController;
 use App\Http\Controllers\Api\v1\RoleController;
 use App\Http\Controllers\Api\v1\ShortController;
 use App\Http\Controllers\Api\v1\SiteSettingController;
@@ -83,6 +84,8 @@ Route::prefix('v1')->group(function () {
         Route::post('/activities', [ActivityController::class, 'store'])->middleware('permission:activity_create');
         Route::put('/activities/{id}', [ActivityController::class, 'update'])->middleware('permission:activity_update');
         Route::delete('/activities/{id}', [ActivityController::class, 'destroy'])->middleware('permission:activity_delete');
+
+        Route::get('/permissions-for-role-create', [PermissionController::class, 'index']);
     });
 });
 

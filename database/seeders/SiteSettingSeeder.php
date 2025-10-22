@@ -61,6 +61,12 @@ class SiteSettingSeeder extends Seeder
                 'key' => 'terms_of_service',
                 'description' => 'Terms of Use',
                 'value' => 'Terms of Use'
+            ],
+
+            [
+                'key' => 'language_switch',
+                'description' => 'Language Switch',
+                'value' => 'true'
             ]
         ];
 
