@@ -59,6 +59,14 @@ const Hero = ({ translations, heroContent, locale }) => {
           <div className="flex-grow h-[2px] bg-[#FFF7ED]" />
         </div>
 
+        <div className="absolute top-4 right-4 shrink-0 flex flex-col gap-2 items-end">
+          <span className="text-sm text-gray-500">Language</span>
+          <div className="inline-flex rounded border border-gray-300 overflow-hidden">
+            <Link href="/set-locale/en" className={`px-3 py-1 text-sm ${locale === 'en' ? 'bg-gray-900 text-white' : 'bg-white text-gray-700 hover:bg-gray-50'}`}>EN</Link>
+            <Link href="/set-locale/mm" className={`px-3 py-1 text-sm ${locale === 'mm' ? 'bg-gray-900 text-white' : 'bg-white text-gray-700 hover:bg-gray-50'}`}>MM</Link>
+          </div>
+        </div>
+
         <h1 className="font-bold text-[#FEF3C6] text-[35px] sm:text-5xl md:text-6xl mt-6 drop-shadow-lg">
           {title}
         </h1>
