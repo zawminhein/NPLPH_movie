@@ -19,7 +19,7 @@ const Upcoming = () => {
 
                     {/* <!-- Image (will move here on mobile) --> */}
                     <div className="rounded-lg shadow-md mb-4 block md:hidden">
-                         <img src="/images/upcoming_section/upcoming_banner2.png" alt="Upcoming" className='w-full rounded-lg'/>
+                         <img src="/images/upcoming_section/upcoming_banner2.jpg" alt="Upcoming" className='w-full rounded-lg'/>
                     </div>
 
                     {/* <!-- Paragraph --> */}
@@ -35,7 +35,7 @@ const Upcoming = () => {
                 {/* <!-- Image Section (hidden on mobile, visible on desktop) --> */}
                 <div className="relative hidden md:block order-2 md:order-1">
                     <div className="rounded-lg shadow-md">
-                         <img src="/images/upcoming_section/upcoming_banner2.png" alt="Upcoming" className='w-full rounded-lg'/>
+                         <img src="/images/upcoming_section/upcoming_banner2.jpg" alt="Upcoming" className='w-full rounded-lg'/>
                     </div>
                 </div>
             </div>
