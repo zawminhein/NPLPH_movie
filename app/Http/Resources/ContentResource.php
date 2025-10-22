@@ -2,11 +2,10 @@
 
 namespace App\Http\Resources;
 
-use App\Models\Content;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class AboutResource extends JsonResource
+class ContentResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -15,15 +14,9 @@ class AboutResource extends JsonResource
      */
     public function toArray(Request $request): array
     {
-        $content = Content::where('type_id', $this->id)
-            ->where('type', 'App\\Models\\AboutContent')
-            ->get();
-
         return [
             'id' => $this->id,
-            'desc_en' => $this->desc_en,
-            'desc_mm' => $this->desc_mm,
-            'image_url' => ContentResource::collection($content)
+            'path' => $this->path
         ];
     }
 }

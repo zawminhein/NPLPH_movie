@@ -57,6 +57,7 @@ Route::prefix('v1')->group(function () {
         // AboutContent routes
         Route::get('/abouts/{id}', [AboutController::class, 'show'])->middleware('permission:about_view');
         Route::put('/abouts/{id}', [AboutController::class, 'update'])->middleware('permission:about_update');
+        Route::post('/abouts/{id}/content-upload', [AboutController::class, 'contentUpload'])->middleware('permission:about_update');
 
         //ShortContent routes
         Route::get('/shorts/{id}', [ShortController::class, 'show'])->middleware('permission:short_view');
@@ -85,7 +86,7 @@ Route::prefix('v1')->group(function () {
         Route::put('/activities/{id}', [ActivityController::class, 'update'])->middleware('permission:activity_update');
         Route::delete('/activities/{id}', [ActivityController::class, 'destroy'])->middleware('permission:activity_delete');
 
-        Route::get('/permissions-for-role-create', [PermissionController::class, 'index']);
+        Route::get('/permissions-for-role-create', [PermissionController::class, 'index'])->middleware('permission:role_create');
     });
 });
 

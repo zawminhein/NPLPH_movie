@@ -9,7 +9,7 @@ class UserService
 {
     public function getAllUsers()
     {
-        return User::with('roles')->latest()->get();
+        return User::with('roles')->orderBy('id', 'desc')->paginate(10);
     }
     public function getUser($id)
     {

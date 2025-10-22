@@ -25,7 +25,7 @@ class UserController extends Controller
     {
         $users = $this->userService->getAllUsers();
         $usersResource = UserResource::collection($users);
-        return $this->successResponse($usersResource, 'Users fetched successfully');
+        return $this->paginationResponse($usersResource, $users, 'Users fetched successfully');
     }
 
     public function store(UserRequest $request)
