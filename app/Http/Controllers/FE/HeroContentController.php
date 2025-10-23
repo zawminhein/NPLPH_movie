@@ -18,6 +18,7 @@ class HeroContentController extends Controller
     public function index()
     {
         $hero = $this->heroService->getAllHeroContent();
+        // dd($hero);
         return Inertia::render('Home', [
             'translations' => trans('messages'),
             // dd(trans('messages')),

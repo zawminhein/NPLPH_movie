@@ -1,33 +1,20 @@
-import React, { useEffect, useState } from 'react'
+
 import { Link } from '@inertiajs/react'
 
 const Hero = ({ translations, heroContent, locale }) => {
+  // Determine background image: use hero image if exists, otherwise fallback
+  const bgImage = heroContent?.image_url
+                  ? `/storage/${heroContent.image_url}`
+                  : '/images/hero_section/hero_section_banner1.png';
 
-  const [bgImage, setBgImage] = useState('/images/hero_section/hero_section_banner1.png')
-
-  useEffect(() => {
-    if(heroContent?.image_url)
-    {
-      fetch(heroContent.image_url, { method: 'HEAD' })
-        .then((res) => {
-          if (res.ok) {
-            setBgImage(heroContent.image_url)
-          } else {
-            setBgImage('/images/hero_section/hero_section_banner1.png')
-          }
-        }) 
-        .catch(() => {
-          setBgImage('/images/hero_section/hero_section_banner1.png')
-        });
-    }
-  }, [heroContent]);
+  // console.log({bgImage});  
 
   if (!heroContent) {
     return (
       <div className="max-w-5xl mx-auto py-16 px-4">
         <div className="text-gray-500">No hero content available.</div>
       </div>
-    )
+    );
   }
 
   const title = translations.hero_section_title

@@ -11,7 +11,7 @@ class RoleService
      */
     public function getAllRoles()
     {
-        return Role::with('permissions')->latest()->get();
+        return Role::with('permissions')->paginate(10);
     }
 
     /**

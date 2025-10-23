@@ -20,7 +20,7 @@ class HeroResource extends JsonResource
             'short_desc_mm' => $this->short_desc_mm,
             'long_desc_en' => $this->long_desc_en,
             'long_desc_mm' => $this->long_desc_mm,
-            'image_url' => $this->image_url,
+            'image_url' => $this->image_url ? asset('storage/' . $this->image_url) : null,
         ];
     }
 }

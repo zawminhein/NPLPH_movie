@@ -24,7 +24,7 @@ class RoleController extends Controller
     {
         $roles = $this->roleService->getAllRoles();
         $rolesResource = RoleResource::collection($roles);
-        return $this->successResponse($rolesResource, 'Roles fetched successfully');
+        return $this->paginationResponse($rolesResource, 'Roles fetched successfully');
     }
 
 

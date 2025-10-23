@@ -14,6 +14,7 @@ class ActivityResource extends JsonResource
      */
     public function toArray(Request $request): array
     {
+        // dd($request->all());
         return [
             'id' => $this->id,
             'title_en' => $this->title_en,

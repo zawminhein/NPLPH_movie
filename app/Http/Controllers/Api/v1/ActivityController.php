@@ -3,7 +3,9 @@
 namespace App\Http\Controllers\APi\v1;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\ActivityRequest;
 use App\Http\Resources\ActivityResource;
+use App\Models\Activity;
 use App\Services\ActivityService;
 use App\Traits\ApiResponseTrait;
 use Illuminate\Http\Request;
@@ -23,7 +25,7 @@ class ActivityController extends Controller
     {
         $activities = $this->activityService->getActivities();
         $activitiesResource = ActivityResource::collection($activities);
-        return $this->successResponse($activitiesResource, 'Activities fetched successfully');
+        return $this->paginationResponse($activitiesResource, $activities, 'Activities fetched successfully');
     }
 
     public function show($id)
@@ -33,16 +35,33 @@ class ActivityController extends Controller
         return $this->successResponse($activityResource, 'Activity details fetched successfully');
     }
 
-    public function store(Request $request)
+    public function store(ActivityRequest $request)
     {
-        $activity = $this->activityService->createActivity($request->all());
+        // $request->validate([
+        //     'title_en' => 'required|string|max:255',
+        //     'title_mm' => 'required|string|max:255',
+        //     'desc_en' => 'required|string',
+        //     'desc_mm' => 'required|string',
+        //     'image_url' => 'nullable|string',
+        // ]);
+        // dd($request->validated());
+        $activity = $this->activityService->createActivity($request->validated());
         $activityResource = new ActivityResource($activity);
         return $this->successResponse($activityResource, 'Activity created successfully', 201);
     }
 
-    public function update($id, Request $request)
+    public function update($id, ActivityRequest $request)
     {
-        $activity = $this->activityService->updateActivity($id, $request->all());
+        // dd($request->all(), $request->method());
+
+        // $request->validate([
+        //     'title_en' => 'required|string|max:255',
+        //     'title_mm' => 'required|string|max:255',
+        //     'desc_en' => 'required|string',
+        //     'desc_mm' => 'required|string',
+        //     'image_url' => 'nullable|string',
+        // ]);
+        $activity = $this->activityService->updateActivity($id, $request->validated());
         $activityResource = new ActivityResource($activity);
         return $this->successResponse($activityResource, 'Activity updated successfully');
     }

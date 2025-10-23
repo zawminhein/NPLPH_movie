@@ -7,6 +7,8 @@ use App\Http\Resources\HeroResource;
 use App\Services\HeroService;
 use App\Traits\ApiResponseTrait;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Log;
 
 class HeroController extends Controller
 {
@@ -23,10 +25,31 @@ class HeroController extends Controller
         return $this->successResponse($heroResource, 'Hero fetched successfully');
     }
 
+    
     public function update($id, Request $request)
     {
-        $hero = $this->heroService->updateHeroContent($id, $request->all());
-        $heroResource = new HeroResource($hero);
-        return $this->successResponse($heroResource, 'Hero updated successfully');
+        $hero = $this->heroService->getHeroContent($id);
+        $data = $request->all();
+
+        if ($request->hasFile('image_url')) {
+            // Delete old image if exists
+            if ($hero->image_url && Storage::disk('public')->exists($hero->image_url)) {
+                Storage::disk('public')->delete($hero->image_url);
+            }
+
+            // Store new image
+            $data['image_url'] = $request->file('image_url')->store('heroContent', 'public');
+        } 
+        elseif 
+            ($request->filled('image_url') === false && $hero->image_url) {
+            if (Storage::disk('public')->exists($hero->image_url)) {
+                Storage::disk('public')->delete($hero->image_url);
+            }
+            $data['image_url'] = null;
+        }
+
+        $hero = $this->heroService->updateHeroContent($id, $data);
+
+        return $this->successResponse(new HeroResource($hero), 'Hero updated successfully');
     }
 }

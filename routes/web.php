@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\FE\AboutContentController;
 use App\Http\Controllers\FE\HeroContentController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Session;
@@ -24,5 +25,5 @@ Route::get('/set-locale/{locale}', function ($locale) {
 //     ]);
 // });
 
-Route::get('/', [HeroContentController::class, 'index']);
+Route::get('/', [AboutContentController::class, 'index']);
 Route::get('/home', [HeroContentController::class, 'index']);

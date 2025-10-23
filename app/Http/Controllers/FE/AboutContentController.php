@@ -22,6 +22,7 @@ class AboutContentController extends Controller
             'about_translations' => trans('messages'),
             // dd(trans('messages')),
             'aboutContent' => $about,
+            // dd($about),
             'locale' => app()->getLocale()
         ]);
     }

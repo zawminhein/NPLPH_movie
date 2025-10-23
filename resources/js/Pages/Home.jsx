@@ -7,7 +7,7 @@ import Upcoming from '../Components/Upcoming'
 import Activities from '../Components/Activities'
 
 export default function Home({ translations, about_translations, heroContent, aboutContent, locale }) {
-  console.log('Home props:', { translations, about_translations , aboutContent, heroContent, locale });
+  // console.log('Home props:', { translations, about_translations , aboutContent, heroContent, locale });
 
   return (
     <AppLayouts>

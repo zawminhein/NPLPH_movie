@@ -8,7 +8,7 @@ class ActivityService
 {
     public function getActivities()
     {
-        $activities = Activity::all();
+        $activities = Activity::orderBy('updated_at', 'desc')->paginate(10);
         return $activities;
     }
     public function getActivity($id)
@@ -24,7 +24,7 @@ class ActivityService
             'title_mm' => $data['title_mm'],
             'desc_en' => $data['desc_en'],
             'desc_mm' => $data['desc_mm'],
-            'image_url' => $data['image_url'],
+            'image_url' => $data['image_url'] ?? null,
         ];
         $activity = Activity::create($createData);
         return $activity;
@@ -37,7 +37,7 @@ class ActivityService
             'title_mm' => $data['title_mm'],
             'desc_en' => $data['desc_en'],
             'desc_mm' => $data['desc_mm'],
-            'image_url' => $data['image_url'],
+            'image_url' => $data['image_url'] ?? null,
         ];
         $activity = Activity::find($id);
         $activity->update($updateData);
