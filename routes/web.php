@@ -25,5 +25,5 @@ Route::get('/set-locale/{locale}', function ($locale) {
 //     ]);
 // });
 
-Route::get('/', [AboutContentController::class, 'index']);
+Route::get('/', [HeroContentController::class, 'index']);
 Route::get('/home', [HeroContentController::class, 'index']);

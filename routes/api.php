@@ -72,8 +72,8 @@ Route::prefix('v1')->group(function () {
         Route::put('/contacts/{id}', [ContactController::class, 'update'])->middleware('permission:contact_update');
 
         //SiteSettingContent routes
-        Route::get('/sitesettings/{id}', [SiteSettingController::class, 'show'])->middleware('permission:site_setting_view');
-        Route::put('/sitesettings/{id}', [SiteSettingController::class, 'update'])->middleware('permission:site_setting_update');
+        Route::get('/sitesettings', [SiteSettingController::class, 'show'])->middleware('permission:site_setting_view');
+        Route::put('/sitesettings', [SiteSettingController::class, 'update'])->middleware('permission:site_setting_update');
 
         //SocialMediaContent routes
         Route::get('/socialmedias/{id}', [SocialMediaController::class, 'show'])->middleware('permission:social_media_view');

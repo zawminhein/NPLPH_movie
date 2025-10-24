@@ -14,6 +14,7 @@ class AboutService
     public function getAboutContent($id)
     {
         $about = AboutContent::find($id);
+        // dd($about);
         return $about;
     }
 
@@ -22,7 +23,7 @@ class AboutService
         $updateData = [
             'desc_en' => $data['desc_en'],
             'desc_mm' => $data['desc_mm'],
-            'image_url' => $data['image_url'],
+            'image_url' => $data['image_url'] ?? null,
         ];
         $about = AboutContent::find($id);
         $about->update($updateData);

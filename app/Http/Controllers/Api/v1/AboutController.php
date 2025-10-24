@@ -28,7 +28,60 @@ class AboutController extends Controller
 
     public function update($id, Request $request)
     {
-        $about = $this->aboutService->updateAboutContent($id, $request->all());
+        $about = $this->aboutService->getAboutContent($id);
+        $data = $request->all(); 
+
+        if ($request->hasFile('image_url')) {
+            $oldImagePath = $about->image_url;
+            // dd($oldImagePath);
+
+            // DELETE OLD IMAGE: Robustly clean the path before checking/deleting
+            if ($oldImagePath) {
+                // Remove potential /storage/ or storage/ prefix that might be saved in the DB
+                $cleanPath = str_replace('storage/', '', $oldImagePath);
+                // Remove potential leading slash
+                $cleanPath = ltrim($cleanPath, '/');
+                
+                if (Storage::disk('public')->exists($cleanPath)) {
+                    Storage::disk('public')->delete($cleanPath);
+                }
+            }
+
+            $image = $request->file('image_url');
+            $filename = time() . '_' . uniqid() . '.' . $image->getClientOriginalExtension();
+
+            // Store on public disk
+            $image->storeAs('aboutContent/bg_image', $filename, 'public');
+
+            // Store the new file and update the image_url field in $data
+            $data['image_url'] = 'aboutContent/bg_image/' . $filename;
+            // dd($data['image_url']);
+        } 
+        elseif ($request->filled('image_url') === false && $about->image_url) 
+        {
+            $oldImagePath = $about->image_url;
+            
+            // DELETE OLD IMAGE: Robustly clean the path before checking/deleting
+            if ($oldImagePath) {
+                // Remove potential /storage/ or storage/ prefix that might be saved in the DB
+                $cleanPath = str_replace('storage/', '', $oldImagePath);
+                // Remove potential leading slash
+                $cleanPath = ltrim($cleanPath, '/');
+                
+                if (Storage::disk('public')->exists($cleanPath)) {
+                    Storage::disk('public')->delete($cleanPath);
+                }
+            }
+            
+            // Set image_url to null in the database
+            $data['image_url'] = null;
+        } 
+        else {
+            unset($data['image_url']); 
+        }
+
+        $about = $this->aboutService->updateAboutContent($id, $data);
+        
         $aboutResource = new AboutResource($about);
         return $this->successResponse($aboutResource, 'About updated successfully');
     }

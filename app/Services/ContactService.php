@@ -20,7 +20,7 @@ class ContactService
             'mail' => $data['mail'],
             'phone' => $data['phone'],
             'address' => $data['address'],
-            'image_url' => $data['image_url'],
+            'image_url' => $data['image_url'] ?? null,
         ];
         $contact = ContactContent::find($id);
         $contact->update($updateData);

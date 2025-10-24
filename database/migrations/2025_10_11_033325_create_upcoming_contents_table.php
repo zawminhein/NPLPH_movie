@@ -16,6 +16,7 @@ return new class extends Migration
             $table->string('title_en')->nullable(false);
             $table->string('title_mm')->nullable();
             $table->text('image_url')->nullable();
+            $table->text('bg_image_url')->nullable();
             $table->text('short_desc_en')->nullable(false);
             $table->text('short_desc_mm')->nullable();
             $table->text('long_desc_en')->nullable(false);//{editor}

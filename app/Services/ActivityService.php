@@ -25,7 +25,9 @@ class ActivityService
             'desc_en' => $data['desc_en'],
             'desc_mm' => $data['desc_mm'],
             'image_url' => $data['image_url'] ?? null,
+            'bg_image_url' => $data['bg_image_url'] ?? null,
         ];
+        // dd($createData);
         $activity = Activity::create($createData);
         return $activity;
     }
@@ -38,6 +40,7 @@ class ActivityService
             'desc_en' => $data['desc_en'],
             'desc_mm' => $data['desc_mm'],
             'image_url' => $data['image_url'] ?? null,
+            'bg_image_url' => $data['bg_image_url'] ?? null,
         ];
         $activity = Activity::find($id);
         $activity->update($updateData);

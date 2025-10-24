@@ -67,6 +67,12 @@ class SiteSettingSeeder extends Seeder
                 'key' => 'language_switch',
                 'description' => 'Language Switch',
                 'value' => 'true'
+            ],
+
+            [
+                'key' => 'footer_bg_image',
+                'description' => 'Footer Background Image',
+                'value' => 'footer-bg.jpg'
             ]
         ];
 

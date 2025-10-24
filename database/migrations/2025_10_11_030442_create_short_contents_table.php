@@ -18,6 +18,7 @@ return new class extends Migration
             $table->text('desc_en')->nullable(false);
             $table->text('desc_mm')->nullable();
             $table->text('youtube_url')->nullable();
+            $table->text('image_url')->nullable();
             $table->timestamps();
         });
     }

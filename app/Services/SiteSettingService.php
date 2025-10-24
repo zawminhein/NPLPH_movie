@@ -6,19 +6,20 @@ use App\Models\SiteSetting;
 
 class SiteSettingService
 {
-    public function getSiteSetting($id)
+    public function getSiteSetting()
     {
-        $siteSetting = SiteSetting::find($id);
+        $siteSetting = SiteSetting::all();
         return $siteSetting;
     }
 
-    public function updateSiteSetting($id, $data)
+    public function updateSiteSetting($data)
     {
-        $updateData = [
-            'value' => $data['value']
-        ];
-        $siteSetting = SiteSetting::find($id);
-        $siteSetting->update($updateData);
+        foreach ($data as $item) {
+            SiteSetting::where('key', $item['key'])->update([
+                'value' => $item['value'],
+            ]);
+        }
+        $siteSetting = SiteSetting::all();
         return $siteSetting;
     }
 }

@@ -12,5 +12,6 @@ class Activity extends Model
         'desc_en',
         'desc_mm',
         'image_url',
+        'bg_image_url',
     ];
 }

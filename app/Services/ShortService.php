@@ -19,8 +19,10 @@ class ShortService
             'title_mm' => $data['title_mm'],
             'desc_en' => $data['desc_en'],
             'desc_mm' => $data['desc_mm'],
-            'youtube_url' => $data['youtube_url']
+            'youtube_url' => $data['youtube_url'],
+            'image_url' => $data['image_url'] ?? null,
         ];
+        // dd($updateData);
         $short = ShortContent::find($id);
         $short->update($updateData);
         return $short;

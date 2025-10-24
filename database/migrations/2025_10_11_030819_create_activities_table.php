@@ -18,6 +18,7 @@ return new class extends Migration
             $table->text('desc_en')->nullable(false); // {editor} for Summernote
             $table->text('desc_mm')->nullable();       // {editor} for Summernote
             $table->text('image_url')->nullable();
+            $table->text('bg_image_url')->nullable();
             $table->timestamps();
         });
     }

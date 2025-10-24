@@ -21,7 +21,7 @@ class ContactResource extends JsonResource
             'mail' => $this->mail,
             'phone' => $this->phone,
             'address' => $this->address,
-            'image_url' => $this->image_url
+            'image_url' => $this->image_url ? asset('storage/' . $this->image_url) : null,
         ];
     }
 }

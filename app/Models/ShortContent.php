@@ -12,5 +12,6 @@ class ShortContent extends Model
         'desc_en',
         'desc_mm',
         'youtube_url',
+        'image_url',
     ];
 }

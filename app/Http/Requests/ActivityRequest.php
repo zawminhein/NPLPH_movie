@@ -26,7 +26,8 @@ class ActivityRequest extends FormRequest
             'title_mm' => 'required|string|max:255',
             'desc_en' => 'required|string',
             'desc_mm' => 'required|string',
-            'image_url' => 'nullable|string',
+            'image_url' => 'nullable',
+            'bg_image_url' => 'nullable',
         ];
     }
 

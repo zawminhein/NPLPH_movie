@@ -51,13 +51,4 @@ class AuthController extends Controller
         $request->user()?->currentAccessToken()?->delete();
         return $this->successResponse(['message' => 'Logged out successfully']);
     }
-
-
-    /**
-     * Get authenticated user details
-     */
-    public function me(Request $request)
-    {
-        return $this->successResponse($request->user(), 'Authenticated user data');
-    }
 }
