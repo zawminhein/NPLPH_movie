@@ -30,17 +30,45 @@ class SiteSettingController extends Controller
         return $this->successResponse($siteSettingResource, 'Site Setting fetched successfully');
     }
 
-    public function update(SiteSettingRequest $request)
+    public function update(Request $request)
     {
-        $validated = $request->validate([
-            'settings' => 'required|array',
-            'settings.*.key' => 'required|string|exists:site_settings,key',
-            'settings.*.value' => 'nullable|string',
-        ]);
-        dd($validated);
+        // Get all site settings from DB
+        $settings = SiteSetting::all()->keyBy('key');
 
-        $siteSetting = $this->siteSettingService->updateSiteSetting($request->validated());
-        $siteSettingResource = new SiteSettingResource($siteSetting);
-        return $this->successResponse($siteSettingResource, 'Site Setting updated successfully');
+        // dd($request->file('footer_bg_image'));
+        // dd($request->except('_token'));
+
+        foreach ($request->except('_token') as $key => $value) {
+
+            // Handle file upload
+            if ($key === 'footer_bg_image' && $request->hasFile('footer_bg_image')) {
+                $file = $request->file('footer_bg_image');
+
+                // Generate unique name
+                $filename = time() . '_' . $file->getClientOriginalName();
+
+                // Store the file (e.g., in 'public/uploads/settings')
+                $file->storeAs('site_setting', $filename, 'public');
+
+
+                // Delete old file if exists
+                if (!empty($settings[$key]->value) && Storage::exists('site_setting' . $settings[$key]->value)) {
+                    Storage::delete('site_setting' . $settings[$key]->value);
+                }
+
+                // Update DB value
+                $settings[$key]->update(['value' => $filename]);
+            } else {
+                // Regular text or data update
+                if (isset($settings[$key])) {
+                    $settings[$key]->update(['value' => $value]);
+                }
+            }
+        }
+
+        $filteredSettings = $settings->where('key', '!=', 'language_switch');
+        $site_setting_resource = SiteSettingResource::collection($filteredSettings);
+        return $this->successResponse($site_setting_resource, 'Site Settings updated successfully');
+
     }
 }
