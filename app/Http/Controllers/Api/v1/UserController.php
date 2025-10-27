@@ -42,7 +42,7 @@ class UserController extends Controller
         return $this->successResponse($userResource, 'User details fetched successfully');
     }
 
-    public function update(Request $request, $id)
+    public function update(UserRequest $request, $id)
     {
         $user = User::findOrFail($id);
         $user = $this->userService->updateUser($user, $request->all());

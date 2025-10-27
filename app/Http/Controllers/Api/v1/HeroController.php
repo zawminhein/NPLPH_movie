@@ -31,31 +31,33 @@ class HeroController extends Controller
         $hero = $this->heroService->getHeroContent($id);
         $data = $request->all();
 
-        if ($request->hasFile('image_url')) {
-            // Delete old image if exists
-            if ($hero->image_url && Storage::disk('public')->exists($hero->image_url)) {
-                Storage::disk('public')->delete($hero->image_url);
-            }
+        dd($data);
 
-            $image = $request->file('image_url');
-            $fileName = time() . '_' . uniqid() . '.' . $image->getClientOriginalExtension();
+        // if ($request->hasFile('image_url')) {
+        //     // Delete old image if exists
+        //     if ($hero->image_url && Storage::disk('public')->exists($hero->image_url)) {
+        //         Storage::disk('public')->delete($hero->image_url);
+        //     }
 
-            $image->storeAs('heroContent', $fileName, 'public');
-            $data['image_url'] = 'heroContent/' . $fileName;
-            // Store new image
-            // $data['image_url'] = $fileName->store('heroContent', 'public');
-        } 
-        elseif ($request->filled('image_url') === false && $hero->image_url) 
-        {
-            if (Storage::disk('public')->exists($hero->image_url)) {
-                Storage::disk('public')->delete($hero->image_url);
-            }
-            $data['image_url'] = null;
-        } else {
-            unset($data['image_url']);
-        }
+        //     $image = $request->file('image_url');
+        //     $fileName = time() . '_' . uniqid() . '.' . $image->getClientOriginalExtension();
 
-        $hero = $this->heroService->updateHeroContent($id, $data);
+        //     $image->storeAs('heroContent', $fileName, 'public');
+        //     $data['image_url'] = 'heroContent/' . $fileName;
+        //     // Store new image
+        //     // $data['image_url'] = $fileName->store('heroContent', 'public');
+        // } 
+        // elseif ($request->filled('image_url') === false && $hero->image_url) 
+        // {
+        //     if (Storage::disk('public')->exists($hero->image_url)) {
+        //         Storage::disk('public')->delete($hero->image_url);
+        //     }
+        //     $data['image_url'] = null;
+        // } else {
+        //     unset($data['image_url']);
+        // }
+
+        $hero = $this->heroService->updateHeroContent($hero, $data);
 
         return $this->successResponse(new HeroResource($hero), 'Hero updated successfully');
     }
