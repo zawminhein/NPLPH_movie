@@ -9,6 +9,7 @@ use App\Models\SiteSetting;
 use App\Services\SiteSettingService;
 use App\Traits\ApiResponseTrait;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class SiteSettingController extends Controller
 {
@@ -31,35 +32,47 @@ class SiteSettingController extends Controller
     }
 
     public function update(Request $request)
-    {
-        // Get all site settings from DB
+    {   
         $settings = SiteSetting::all()->keyBy('key');
-
-        // dd($request->file('footer_bg_image'));
-        // dd($request->except('_token'));
 
         foreach ($request->except('_token') as $key => $value) {
 
-            // Handle file upload
+            // Handle file upload (footer background image)
             if ($key === 'footer_bg_image' && $request->hasFile('footer_bg_image')) {
+
                 $file = $request->file('footer_bg_image');
+                $filename = time() . '_' . uniqid() . '.' . $file->getClientOriginalExtension();
 
-                // Generate unique name
-                $filename = time() . '_' . $file->getClientOriginalName();
-
-                // Store the file (e.g., in 'public/uploads/settings')
-                $file->storeAs('site_setting', $filename, 'public');
-
+                // Store new file in 'public/site_setting'
+                $file->storeAs('site_setting/footer_bg_image', $filename, 'public');
 
                 // Delete old file if exists
-                if (!empty($settings[$key]->value) && Storage::exists('site_setting' . $settings[$key]->value)) {
-                    Storage::delete('site_setting' . $settings[$key]->value);
+                if (!empty($settings[$key]->value) && Storage::disk('public')->exists('site_setting/footer_bg_image/' . $settings[$key]->value)) {
+                    Storage::disk('public')->delete('site_setting/footer_bg_image/' . $settings[$key]->value);
+                }
+
+                // Update DB value
+                $settings[$key]->update(['value' => $filename]);
+
+            }
+
+            if($key === 'activities_bg_image' && $request->hasFile('activities_bg_image')) {
+                $file = $request->file('activities_bg_image');
+                $filename = time() . '_' . uniqid() . '.' . $file->getClientOriginalExtension();
+
+                // Store new file in 'public/site_setting'
+                $file->storeAs('site_setting/activities_bg_image', $filename, 'public');
+
+                // dd(Storage::disk('public')->exists('site_setting/activities_bg_image/' . $settings[$key]->value));
+                // Delete old file if exists
+                if (!empty($settings[$key]->value) && Storage::disk('public')->exists('site_setting/activities_bg_image/' . $settings[$key]->value)) {
+                    Storage::disk('public')->delete('site_setting/activities_bg_image/' . $settings[$key]->value);
                 }
 
                 // Update DB value
                 $settings[$key]->update(['value' => $filename]);
             } else {
-                // Regular text or data update
+                // Regular text/data update
                 if (isset($settings[$key])) {
                     $settings[$key]->update(['value' => $value]);
                 }
@@ -68,7 +81,7 @@ class SiteSettingController extends Controller
 
         $filteredSettings = $settings->where('key', '!=', 'language_switch');
         $site_setting_resource = SiteSettingResource::collection($filteredSettings);
-        return $this->successResponse($site_setting_resource, 'Site Settings updated successfully');
 
+        return $this->successResponse($site_setting_resource, 'Site Settings updated successfully');
     }
 }

@@ -3,29 +3,24 @@
 namespace App\Exceptions;
 
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
-use Illuminate\Auth\AuthenticationException;
 use Throwable;
+use Illuminate\Validation\ValidationException;
 
 class Handler extends ExceptionHandler
 {
-    protected $dontReport = [];
-    protected $dontFlash = [
-        'current_password',
-        'password',
-        'password_confirmation',
-    ];
-
+    /**
+     * Register the exception handling callbacks for the application.
+     */
     public function register(): void
     {
-        $this->reportable(function (Throwable $e) {
-            //
+        // Handle validation errors as JSON
+        $this->renderable(function (ValidationException $e, $request) {
+            if ($request->expectsJson()) {
+                return response()->json([
+                    'message' => $e->getMessage(),
+                    'errors' => $e->errors(),
+                ], 422);
+            }
         });
-    }
-
-    protected function unauthenticated($request, AuthenticationException $exception)
-    {
-        return response()->json([
-            'message' => 'Unauthorization'
-        ], 401);
     }
 }
