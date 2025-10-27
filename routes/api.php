@@ -1,7 +1,7 @@
 <?php
 
 use App\Http\Controllers\Api\v1\AboutController;
-use App\Http\Controllers\APi\v1\ActivityController;
+use App\Http\Controllers\Api\v1\ActivityController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\RateLimiter;
 use Illuminate\Cache\RateLimiting\Limit;
