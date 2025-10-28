@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class ActivityRequest extends FormRequest
+class HeroContentRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -22,21 +22,21 @@ class ActivityRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'title_en' => 'required|string|max:255',
-            'title_mm' => 'required|string|max:255',
-            'desc_en' => 'required|string',
-            'desc_mm' => 'required|string',
+            'short_desc_en' => 'required|string',
+            'short_desc_mm' => 'required|string',
+            'long_desc_en' => 'required|string',
+            'long_desc_mm' => 'required|string',
             'image_url' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
         ];
     }
 
-    public function messages(): array
+    public function messages()
     {
         return [
-            'title_en.required' => 'The title_en field is required.',
-            'title_mm.required' => 'The title_mm field is required.',
-            'desc_en.required' => 'The desc_en field is required.',
-            'desc_mm.required' => 'The desc_mm field is required.',
+            'image_url.required' => 'The image field is required.',
+            'image_url.image' => 'The image field must be an image.',
+            'image_url.mimes' => 'The image field must be a file of type: jpeg, png, jpg, gif.',
+            'image_url.max' => 'The image field may not be greater than 2MB.',
         ];
     }
 }

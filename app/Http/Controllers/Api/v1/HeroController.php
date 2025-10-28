@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api\v1;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\HeroContentRequest;
 use App\Http\Resources\HeroResource;
 use App\Services\HeroService;
 use App\Traits\ApiResponseTrait;
@@ -26,39 +27,10 @@ class HeroController extends Controller
     }
 
     
-    public function update($id, Request $request)
+    public function update($id, HeroContentRequest $request)
     {
         $hero = $this->heroService->getHeroContent($id);
-        $data = $request->all();
-
-        dd($data);
-
-        // if ($request->hasFile('image_url')) {
-        //     // Delete old image if exists
-        //     if ($hero->image_url && Storage::disk('public')->exists($hero->image_url)) {
-        //         Storage::disk('public')->delete($hero->image_url);
-        //     }
-
-        //     $image = $request->file('image_url');
-        //     $fileName = time() . '_' . uniqid() . '.' . $image->getClientOriginalExtension();
-
-        //     $image->storeAs('heroContent', $fileName, 'public');
-        //     $data['image_url'] = 'heroContent/' . $fileName;
-        //     // Store new image
-        //     // $data['image_url'] = $fileName->store('heroContent', 'public');
-        // } 
-        // elseif ($request->filled('image_url') === false && $hero->image_url) 
-        // {
-        //     if (Storage::disk('public')->exists($hero->image_url)) {
-        //         Storage::disk('public')->delete($hero->image_url);
-        //     }
-        //     $data['image_url'] = null;
-        // } else {
-        //     unset($data['image_url']);
-        // }
-
-        $hero = $this->heroService->updateHeroContent($hero, $data);
-
+        $hero = $this->heroService->updateHeroContent($hero, $request);
         return $this->successResponse(new HeroResource($hero), 'Hero updated successfully');
     }
 }

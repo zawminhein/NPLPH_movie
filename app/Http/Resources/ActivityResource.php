@@ -22,7 +22,7 @@ class ActivityResource extends JsonResource
             'desc_en' => $this->desc_en,
             'desc_mm' => $this->desc_mm,
             'image_url' => $this->image_url ? asset('storage/' . $this->image_url) : null,
-            'bg_image_url' => $this->bg_image_url ? asset('storage/' . $this->bg_image_url) : null,
+            // 'bg_image_url' => $this->bg_image_url ? asset('storage/' . $this->bg_image_url) : null,
         ];
     }
 }

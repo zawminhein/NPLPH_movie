@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api\v1;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\RoleRequest;
 use App\Http\Resources\RoleResource;
 use App\Services\RoleService;
 use App\Traits\ApiResponseTrait;
@@ -28,13 +29,9 @@ class RoleController extends Controller
     }
 
 
-    public function store(Request $request)
+    public function store(RoleRequest $request)
     {
-        $data = $request->validate([
-            'name' => 'required|string|unique:roles,name',
-            'permissions' => 'array'
-        ]);
-
+        $data = $request->validated();
         $role = $this->roleService->createRole($data);
         $roleResource = new RoleResource($role);
         return $this->successResponse($roleResource, 'Role created successfully', 201);
@@ -42,19 +39,16 @@ class RoleController extends Controller
 
     public function show($id)
     {
-        $role = Role::findOrFail($id);
+        $role = $this->roleService->getRole($id);
         $roleResource = new RoleResource($role);
         return $this->successResponse($roleResource, 'Role details fetched successfully');
     }
 
-    public function update(Request $request, $id)
+    public function update(RoleRequest $request, $id)
     {
-        $role = Role::findOrFail($id);
+        $role = $this->roleService->getRole($id);
 
-        $data = $request->validate([
-            'name' => 'required|string|unique:roles,name,' . $id,
-            'permissions' => 'array'
-        ]);
+        $data = $request->validated();
 
         $role = $this->roleService->updateRole($role, $data);
         $roleResource = new RoleResource($role);
@@ -63,7 +57,7 @@ class RoleController extends Controller
 
     public function destroy($id)
     {
-        $role = Role::findOrFail($id);
+        $role = $this->roleService->getRole($id);
         $this->roleService->deleteRole($role);
         return $this->successResponse('message', 'Role deleted successfully');
     }
