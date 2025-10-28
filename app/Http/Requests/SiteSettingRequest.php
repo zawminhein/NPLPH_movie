@@ -11,28 +11,36 @@ class SiteSettingRequest extends FormRequest
      */
     public function authorize(): bool
     {
+        // Allow only authorized admins if needed
         return true;
     }
 
-    /**
-     * Get the validation rules that apply to the request.
-     *
-     * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array<mixed>|string>
-     */
     public function rules(): array
     {
         return [
-            'settings' => 'required|array|min:1',
-            'settings.*.key' => 'required|string|exists:site_settings,key',
-            'settings.*.value' => 'nullable',
+            // Text-based settings
+            'site_name_en'       => ['nullable', 'string', 'max:255'],
+            'site_name_mm'       => ['nullable', 'string', 'max:255'],
+            'address'            => ['nullable', 'string', 'max:500'],
+            'email'              => ['nullable', 'email', 'max:255'],
+            'footer_desc1'       => ['nullable', 'string'],
+            'footer_desc2'       => ['nullable', 'string'],
+            'privacy_policy'     => ['nullable', 'string'],
+            'terms_of_service'   => ['nullable', 'string'],
+
+            // File/image settings
+            'footer_bg_image'     => ['nullable', 'image', 'mimes:jpeg,png,jpg,webp', 'max:2048'],
+            'activities_bg_image' => ['nullable', 'image', 'mimes:jpeg,png,jpg,webp', 'max:2048'],
         ];
     }
 
-    public function messages()
+    public function messages(): array
     {
         return [
-            'settings.*.key.required' => 'Setting key is required.',
-            'settings.*.key.exists' => 'Setting key does not exist.',
+            'email.email' => 'Please provide a valid email address.',
+            'footer_bg_image.image' => 'Footer background must be an image file.',
+            'activities_bg_image.image' => 'Activities background must be an image file.',
         ];
     }
+
 }

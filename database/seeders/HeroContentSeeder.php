@@ -19,7 +19,7 @@ class HeroContentSeeder extends Seeder
             'short_desc_mm' => 'အထိမ်းအမှတ် ရုပ်ရှင်',
             'long_desc_en' => "Discover timeless films, read passionate reviews, and dive deep into the art of cinema. Every movie tells a story, and we're here to share those stories with you.",
             'long_desc_mm' => 'ရှေးဟောင်းဇာတ်ကားများမှ စိတ်လှုပ်ရှားဖွယ် ဇာတ်လမ်းများကို အတူတူ လေ့လာကြည့်ရှုကြပါစို့။',
-            'image_url' => '',
+            'image_url' => '/public/images/hero_section/hero_section_banner1.png',
         ];
 
         HeroContent::firstOrCreate($hero_content);

@@ -33,11 +33,6 @@ class ContactService
             $fileName = time() . '_' . uniqid() . '.' . $image->getClientOriginalExtension();
             $image->storeAs('contactContent', $fileName, 'public');
             $updateData['image_url'] = 'contactContent/' . $fileName;
-        } elseif ($request->filled('image_url') === false && $contact->image_url) {
-            if (Storage::disk('public')->exists($contact->image_url)) {
-                Storage::disk('public')->delete($contact->image_url);
-            }
-            $updateData['image_url'] = null;
         } else {
             unset($updateData['image_url']);
         }

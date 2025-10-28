@@ -39,9 +39,6 @@ class AboutService
 
             $image->storeAs('aboutContent/bg_image', $fileName, 'public');
             $updateData['image_url'] = 'aboutContent/bg_image/' . $fileName;
-        } elseif ($request->filled('image_url') === false && $about->image_url) {
-            Storage::disk('public')->delete($about->image_url);
-            $updateData['image_url'] = null;
         } else {
             unset($updateData['image_url']);
         }

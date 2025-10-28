@@ -26,24 +26,20 @@ class HeroService
             'long_desc_mm' => $data['long_desc_mm'],
         ];
 
-        // dd($hero->image_url);
+        // If a new image is uploaded
         if ($request->hasFile('image_url')) {
-            // Delete old image if exists
+            // Delete the old image if it exists
             if ($hero->image_url && Storage::disk('public')->exists($hero->image_url)) {
                 Storage::disk('public')->delete($hero->image_url);
             }
 
+            // Store new image
             $image = $request->file('image_url');
             $fileName = time() . '_' . uniqid() . '.' . $image->getClientOriginalExtension();
-
             $image->storeAs('heroContent', $fileName, 'public');
             $updateData['image_url'] = 'heroContent/' . $fileName;
-        } 
-        elseif ($request->filled('image_url') === false && $hero->image_url) 
-        {
-            Storage::disk('public')->delete($hero->image_url);
-            $updateData['image_url'] = null;
         } else {
+            // No new image — keep existing one
             unset($updateData['image_url']);
         }
         $hero -> update($updateData);

@@ -80,13 +80,6 @@ class ActivityService
             // Store the new file and update the image_url field in $data
             $updateData['image_url'] = 'activityContent/' . $filename;
             // dd($data['image_url']);
-        }
-        elseif ($request->filled('image_url') === false && $activity->image_url) 
-        {
-            Storage::disk('public')->delete($activity->image_url);
-            
-            // Set image_url to null in the database
-            $updateData['image_url'] = null;
         } else {
             unset($updateData['image_url']); 
         }

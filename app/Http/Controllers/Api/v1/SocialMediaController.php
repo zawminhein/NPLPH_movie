@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api\v1;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\SocialMediaRequest;
 use App\Http\Resources\SocialMediaResource;
 use App\Services\SocialMediaService;
 use App\Traits\ApiResponseTrait;
@@ -26,7 +27,7 @@ class SocialMediaController extends Controller
         return $this->successResponse($socialMediaResource, 'Social media fetched successfully');
     }
 
-    public function update($id, Request $request)
+    public function update($id, SocialMediaRequest $request)
     {
         $socialMedia = $this->socialMediaService->updateSocialMedia($id, $request->all());
         $socialMediaResource = new SocialMediaResource($socialMedia);
