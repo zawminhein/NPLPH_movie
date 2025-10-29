@@ -21,7 +21,7 @@ class ShortResource extends JsonResource
             'desc_en' => $this->desc_en,
             'desc_mm' => $this->desc_mm,
             'youtube_url' => $this->youtube_url,
-            'image_url' => $this->image_url ? asset('storage/' . $this->image_url) : null,
+            'image_url' => $this->image_url,
         ];
     }
 }

@@ -23,11 +23,11 @@ class ShortService
             'desc_mm' => $data['desc_mm'],
             'youtube_url' => $data['youtube_url'] ?? null,
             'image_url' => $data['image_url'] ?? null,
-        ];
+        ]; 
 
         if($request->hasFile('image_url')) {
-            if($short->image_url && Storage::disk('public')->exists($short->image_url)) {
-                Storage::disk('public')->delete($short->image_url);
+            if($short->image_url && Storage::disk('public')->exists($short->getRawOriginal('image_url'))) {
+                Storage::disk('public')->delete($short->getRawOriginal('image_url'));
             }
             $image = $request->file('image_url');
             $fileName = time() . '_' . uniqid() . '.' . $image->getClientOriginalExtension();

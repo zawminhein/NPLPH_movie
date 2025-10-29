@@ -23,6 +23,7 @@ class ShortContentSeeder extends Seeder
                         beyond.',
             'desc_mm' => '"ငါပြန်လာပြီဟေ့" ၏ ဆက်လက်ဖွံ့ဖြိုးမှုကို သိရှိလိုသော စုံစမ်းလိုစိတ်ပြင်းပြသူများသည်ဂရုတစိုက် ကြည့်ရှုသင့်ပါသည်။ ',
             'youtube_url' => 'https://www.youtube.com/watch?v=9bZkp7q19f0',
+            'image_url' => url('images/shorts_section/shorts_section_banner.png'),
         ];
 
         ShortContent::firstOrCreate($short_content);

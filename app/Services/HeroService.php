@@ -16,7 +16,7 @@ class HeroService
         return HeroContent::find($id);
     }
 
-    public function updateHeroContent($hero, $request)
+    public function updateHeroContent($hero, $socialMedia, $request)
     {
         $data = $request->all();
         $updateData = [
@@ -26,11 +26,20 @@ class HeroService
             'long_desc_mm' => $data['long_desc_mm'],
         ];
 
+        $updateSocialMedia = [
+            'facebook_link' => $data['facebook_link'],
+            'youtube_link' => $data['youtube_link'],
+            'tiktok_link' => $data['tiktok_link'],
+        ];
+
+        // dd($socialMedia);
+        $socialMedia->update($updateSocialMedia);
+
         // If a new image is uploaded
         if ($request->hasFile('image_url')) {
             // Delete the old image if it exists
-            if ($hero->image_url && Storage::disk('public')->exists($hero->image_url)) {
-                Storage::disk('public')->delete($hero->image_url);
+            if ($hero->image_url && Storage::disk('public')->exists($hero->getRawOriginal('image_url'))) {
+                Storage::disk('public')->delete($hero->getRawOriginal('image_url')); // old image_url);
             }
 
             // Store new image
@@ -43,6 +52,13 @@ class HeroService
             unset($updateData['image_url']);
         }
         $hero -> update($updateData);
+
+        // Merge social media fields into hero for immediate response
+        $hero->facebook_link = $socialMedia->facebook_link;
+        // dd($socialMedia->facebook_link);
+        $hero->youtube_link = $socialMedia->youtube_link;
+        $hero->tiktok_link = $socialMedia->tiktok_link;
+        // dd($hero);
         return $hero;
     }
 }

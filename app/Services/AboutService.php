@@ -28,10 +28,11 @@ class AboutService
             'desc_mm' => $data['desc_mm'],
         ];
 
+        // dd($request->all());
         if ($request->hasFile('image_url')) {
             // Delete old image if exists
-            if ($about->image_url && Storage::disk('public')->exists($about->image_url)) {
-                Storage::disk('public')->delete($about->image_url);
+            if ($about->image_url && Storage::disk('public')->exists($about->getRawOriginal('image_url'))) {
+                Storage::disk('public')->delete($about->getRawOriginal('image_url'));
             }
 
             $image = $request->file('image_url');
@@ -46,7 +47,7 @@ class AboutService
         return $about;
     }
 
-    public function contentUpload($request, $about_id)
+    public function updateAboutImages($request, $about_id)
     {
         // Validate images
         $request->validated();
@@ -66,9 +67,9 @@ class AboutService
 
         // Upload and save new contents
         $uploaded = [];
-        $order = 1;
+        // $order = 1;
 
-        foreach ($request->file('images') as $image) {
+        foreach ($request->file('images') as $key => $image) {
             $filename = time() . '_' . uniqid() . '.' . $image->getClientOriginalExtension();
 
             // Store on public disk
@@ -79,7 +80,7 @@ class AboutService
             $content->type_id = $about_id;
             $content->type = AboutContent::class;
             $content->path = '/storage/aboutContent/' . $filename;
-            $content->order = $order++;
+            $content->order = $key + 1;
             $content->save();
 
             $uploaded[] = $content;

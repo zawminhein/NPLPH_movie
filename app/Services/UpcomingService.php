@@ -70,8 +70,6 @@ class UpcomingService
             'short_desc_mm' => $data['short_desc_mm'],
             'long_desc_en' => $data['long_desc_en'],
             'long_desc_mm' => $data['long_desc_mm'],
-            'image_url' => $data['image_url'] ?? null,
-            'bg_image_url' => $data['bg_image_url'] ?? null,
         ];
 
         // Handle image uploads with helper method
@@ -86,8 +84,8 @@ class UpcomingService
     protected function handleImageUpload($request, $upcoming, $field, $path)
     {
         if ($request->hasFile($field)) {
-            if ($upcoming->$field && Storage::disk('public')->exists($upcoming->$field)) {
-                Storage::disk('public')->delete($upcoming->$field);
+            if ($upcoming->$field && Storage::disk('public')->exists($upcoming->getRawOriginal($field))) {
+                Storage::disk('public')->delete($upcoming->getRawOriginal($field));
             }
 
             $file = $request->file($field);

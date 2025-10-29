@@ -5,6 +5,7 @@ import About from '../Components/About'
 import Shorts from '../Components/Shorts'
 import Upcoming from '../Components/Upcoming'
 import Activities from '../Components/Activities'
+import Contact from '../Components/Contact'
 
 export default function Home({ translations, about_translations, heroContent, aboutContent, locale }) {
   // console.log('Home props:', { translations, about_translations , aboutContent, heroContent, locale });
@@ -16,6 +17,7 @@ export default function Home({ translations, about_translations, heroContent, ab
       <Shorts translations={translations} locale={locale} />
       <Upcoming translations={translations} locale={locale} />
       <Activities translations={translations} locale={locale} />
+      <Contact translations={translations} locale={locale} />
     </AppLayouts>
   )
 }

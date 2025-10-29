@@ -22,18 +22,28 @@ class UpcomingContentRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'facebook_link' => 'nullable|string',
-            'youtube_link' => 'nullable|string',
-            'tiktok_link' => 'nullable|string',
+            'title_en' => 'required|string',
+            'title_mm' => 'required|string',
+            'short_desc_en' => 'required|string',
+            'short_desc_mm' => 'required|string',
+            'long_desc_en' => 'required|string',
+            'long_desc_mm' => 'required|string',
+            'image_url' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'bg_image_url' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
         ];
     }
 
     public function messages(): array
     {
         return [
-            'facebook_link.string' => 'The facebook link must be a string.',
-            'youtube_link.string' => 'The youtube link must be a string.',
-            'tiktok_link.string' => 'The tiktok link must be a string.',
+            'title_en.required' => 'Title in English is required.',
+            'title_mm.required' => 'Title in Myanmar is required.',
+            'short_desc_en.required' => 'Short Description in English is required.',
+            'short_desc_mm.required' => 'Short Description in Myanmar is required.',
+            'long_desc_en.required' => 'Long Description in English is required.',
+            'long_desc_mm.required' => 'Long Description in Myanmar is required.',
+            'image_url.required' => 'Image URL is required.',
+            'bg_image_url.required' => 'Background Image URL is required.',
         ];
     }
 }

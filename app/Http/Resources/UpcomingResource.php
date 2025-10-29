@@ -22,8 +22,8 @@ class UpcomingResource extends JsonResource
             'short_desc_mm' => $this->short_desc_mm,
             'long_desc_en' => $this->long_desc_en,
             'long_desc_mm' => $this->long_desc_mm,
-            'image_url' => $this->image_url ? asset('storage/' . $this->image_url) : null,
-            'bg_image_url' => $this->bg_image_url ? asset('storage/' . $this->bg_image_url) : null,
+            'image_url' => $this->image_url,
+            'bg_image_url' => $this->bg_image_url,
         ];
     }
 }

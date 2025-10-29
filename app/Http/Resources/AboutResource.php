@@ -23,6 +23,7 @@ class AboutResource extends JsonResource
             'id' => $this->id,
             'desc_en' => $this->desc_en,
             'desc_mm' => $this->desc_mm,
+            'bg_image_url' => $this->image_url,
             'image_url' => ContentResource::collection($content)
         ];
     }

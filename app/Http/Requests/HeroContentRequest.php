@@ -27,6 +27,9 @@ class HeroContentRequest extends FormRequest
             'long_desc_en' => 'required|string',
             'long_desc_mm' => 'required|string',
             'image_url' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'facebook_link' => 'nullable|string',
+            'youtube_link' => 'nullable|string',
+            'tiktok_link' => 'nullable|string',
         ];
     }
 

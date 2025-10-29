@@ -26,7 +26,7 @@ class ActivityRequest extends FormRequest
             'title_mm' => 'required|string|max:255',
             'desc_en' => 'required|string',
             'desc_mm' => 'required|string',
-            'image_url' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'image_url' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
         ];
     }
 
@@ -37,6 +37,7 @@ class ActivityRequest extends FormRequest
             'title_mm.required' => 'The title_mm field is required.',
             'desc_en.required' => 'The desc_en field is required.',
             'desc_mm.required' => 'The desc_mm field is required.',
+            'image_url.required' => 'The image_url field is required.',
         ];
     }
 }

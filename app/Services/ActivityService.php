@@ -41,9 +41,7 @@ class ActivityService
 
             // Store the new file and update the image_url field in $data
             $createData['image_url'] = 'activityContent/' . $filename;
-        } elseif ($request->filled('image_url') === false) {
-            $createData['image_url'] = null;
-        }else {
+        } else {
             $createData['image_url'] = null;
         }
         $activity = Activity::create($createData);

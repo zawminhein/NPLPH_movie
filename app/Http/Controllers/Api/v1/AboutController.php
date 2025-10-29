@@ -38,7 +38,7 @@ class AboutController extends Controller
 
     public function contentUpload(ContentUploadRequest $request, $about_id)
     {
-        $uploaded = $this->aboutService->contentUpload($request, $about_id);
+        $uploaded = $this->aboutService->updateAboutImages($request, $about_id);
         return $this->successResponse($uploaded, 'Images uploaded and contents updated successfully.');
     }
 }
