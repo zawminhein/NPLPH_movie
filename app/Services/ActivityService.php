@@ -7,9 +7,10 @@ use Illuminate\Support\Facades\Storage;
 
 class ActivityService
 {
-    public function getActivities()
+    public function getActivities($data)
     {
-        $activities = Activity::orderBy('updated_at', 'desc')->paginate(10);
+        $perPage = $data->get('per_page', 10);
+        $activities = Activity::orderBy('updated_at', 'desc')->paginate($perPage);
         return $activities;
     }
     public function getActivity($id)

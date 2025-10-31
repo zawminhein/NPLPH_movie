@@ -22,9 +22,9 @@ class ActivityController extends Controller
         $this->activityService = $activityService;
     }
 
-    public function index()
+    public function index(Request $request)
     {
-        $activities = $this->activityService->getActivities();
+        $activities = $this->activityService->getActivities($request);
         $activitiesResource = ActivityResource::collection($activities);
         return $this->paginationResponse($activitiesResource, $activities, 'Activities fetched successfully');
     }
