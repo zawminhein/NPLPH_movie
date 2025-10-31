@@ -17,24 +17,30 @@ class UpcomingContent extends Model
         'long_desc_en',
         'long_desc_mm',
     ];
-    public function getImageUrlAttribute($value)
+    protected function resolveImagePath($value, $defaultPath)
     {
-        //  If it's already a full URL, return as-is
         if ($value && preg_match('/^https?:\/\//', $value)) {
             return $value;
         }
 
-        //  If it's in storage/app/public
         if ($value && Storage::disk('public')->exists($value)) {
             return asset('storage/' . $value);
         }
 
-        //  If it's in public/images
         if ($value && file_exists(public_path($value))) {
             return asset($value);
         }
 
-        //  Default fallback image
-        return asset('images/upcoming_section/upcoming_banner1.png');
+        return asset($defaultPath);
+    }
+
+    public function getImageUrlAttribute($value)
+    {
+        return $this->resolveImagePath($value, 'images/upcoming_section/upcoming_banner2.png');
+    }
+
+    public function getBgImageUrlAttribute($value)
+    {
+        return $this->resolveImagePath($value, 'images/upcoming_section/upcoming_bg_banner1.png');
     }
 }

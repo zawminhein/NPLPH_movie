@@ -64,8 +64,8 @@ Route::prefix('v1')->group(function () {
         Route::put('/shorts', [ShortController::class, 'update'])->middleware('permission:short_update');
 
         //UpcomingContent routes
-        Route::get('/upcomings/{id}', [UpcomingController::class, 'show'])->middleware('permission:upcoming_view');
-        Route::put('/upcomings/{id}', [UpcomingController::class, 'update'])->middleware('permission:upcoming_update');
+        Route::get('/upcomings', [UpcomingController::class, 'show'])->middleware('permission:upcoming_view');
+        Route::put('/upcomings', [UpcomingController::class, 'update'])->middleware('permission:upcoming_update');
 
         //ContactContent routes
         Route::get('/contacts/{id}', [ContactController::class, 'show'])->middleware('permission:contact_view');

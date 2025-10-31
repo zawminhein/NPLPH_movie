@@ -7,9 +7,9 @@ use Illuminate\Support\Facades\Storage;
 
 class UpcomingService
 {
-    public function getUpcomingContent($id)
+    public function getUpcomingContent()
     {
-        $upcoming = UpcomingContent::find($id);
+        $upcoming = UpcomingContent::first();
         return $upcoming;
     }
 
