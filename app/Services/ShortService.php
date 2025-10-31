@@ -7,9 +7,9 @@ use Illuminate\Support\Facades\Storage;
 
 class ShortService
 {
-    public function getShortContent($id)
+    public function getShortContent()
     {
-        $short = ShortContent::find($id);
+        $short = ShortContent::first();
         return $short;
     }
 

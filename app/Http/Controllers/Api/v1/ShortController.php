@@ -20,18 +20,22 @@ class ShortController extends Controller
         $this->shortService = $shortService;
     }
 
-    public function show($id)
+    public function show()
     {
-        $short = $this->shortService->getShortContent($id);
+        $short = $this->shortService->getShortContent();
         $shortResource = new ShortResource($short);
         return $this->successResponse($shortResource, 'Short fetched successfully');
     }
 
-    public function update($id, ShortContentRequest $request)
+    public function update( ShortContentRequest $request)
     {
-        $short = $this->shortService->getShortContent($id);
-        $short = $this->shortService->updateShortContent($short, $request);
-        $shortResource = new ShortResource($short);
-        return $this->successResponse($shortResource, 'Short updated successfully');
+        try{
+            $short = $this->shortService->getShortContent();
+            $short = $this->shortService->updateShortContent($short, $request);
+            $shortResource = new ShortResource($short);
+            return $this->successResponse($shortResource, 'Short updated successfully');
+        } catch(\Exception $e){
+            return $this->errorResponse($e->getMessage());
+        }
     }
 }

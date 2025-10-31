@@ -60,8 +60,8 @@ Route::prefix('v1')->group(function () {
         Route::post('/abouts/content-upload', [AboutController::class, 'contentUpload'])->middleware('permission:about_update');
 
         //ShortContent routes
-        Route::get('/shorts/{id}', [ShortController::class, 'show'])->middleware('permission:short_view');
-        Route::put('/shorts/{id}', [ShortController::class, 'update'])->middleware('permission:short_update');
+        Route::get('/shorts', [ShortController::class, 'show'])->middleware('permission:short_view');
+        Route::put('/shorts', [ShortController::class, 'update'])->middleware('permission:short_update');
 
         //UpcomingContent routes
         Route::get('/upcomings/{id}', [UpcomingController::class, 'show'])->middleware('permission:upcoming_view');
