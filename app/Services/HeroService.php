@@ -31,7 +31,7 @@ class HeroService
             'youtube_link' => $data['youtube_link'],
             'tiktok_link' => $data['tiktok_link'],
         ];
-
+        
         // dd($socialMedia);
         $socialMedia->update($updateSocialMedia);
 

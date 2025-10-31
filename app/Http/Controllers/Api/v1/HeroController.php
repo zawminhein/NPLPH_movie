@@ -34,10 +34,14 @@ class HeroController extends Controller
     
     public function update($id, HeroContentRequest $request)
     {
-        $hero = $this->heroService->getHeroContent($id);
-        $socialMedia = $this->socialMediaService->getSocialMedia($id);
-        $hero = $this->heroService->updateHeroContent($hero, $socialMedia, $request);
-        // dd($hero);
-        return $this->successResponse(new HeroResource($hero), 'Hero updated successfully');
+        try{
+            $hero = $this->heroService->getHeroContent($id);
+            $socialMedia = $this->socialMediaService->getSocialMedia($id);
+            $hero = $this->heroService->updateHeroContent($hero, $socialMedia, $request);
+            // dd($hero);
+            return $this->successResponse(new HeroResource($hero), 'Hero updated successfully');
+        }catch(\Exception $e){
+            return $this->errorResponse($e->getMessage());
+        }
     }
 }

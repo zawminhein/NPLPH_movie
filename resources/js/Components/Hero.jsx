@@ -5,8 +5,6 @@ const Hero = ({ translations, heroContent, locale }) => {
   // Determine background image: use hero image if exists, otherwise fallback
   const bgImage = heroContent.image_url;
 
-  console.log({bgImage});  
-
   if (!heroContent) {
     return (
       <div className="max-w-5xl mx-auto py-16 px-4">
