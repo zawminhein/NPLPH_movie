@@ -51,8 +51,8 @@ Route::prefix('v1')->group(function () {
         Route::delete('/roles/{id}', [RoleController::class, 'destroy'])->middleware('permission:role_delete');
 
         // HeroContent routes
-        Route::get('/heros/{id}', [HeroController::class, 'show'])->middleware('permission:hero_view');
-        Route::put('/heros/{id}', [HeroController::class, 'update'])->middleware('permission:hero_update');
+        Route::get('/heros', [HeroController::class, 'show'])->middleware('permission:hero_view');
+        Route::put('/heros', [HeroController::class, 'update'])->middleware('permission:hero_update');
 
         // AboutContent routes
         Route::get('/abouts/{id}', [AboutController::class, 'show'])->middleware('permission:about_view');

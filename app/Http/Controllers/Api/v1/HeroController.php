@@ -22,24 +22,24 @@ class HeroController extends Controller
         $this->heroService = $heroService;
         $this->socialMediaService = $socialMediaService;
     }
-    public function show($id)
+    public function show()
     {
-        $hero = $this->heroService->getHeroContent($id);
-        $socialMedia = $this->socialMediaService->getSocialMedia($id);
+        $hero = $this->heroService->getHeroContent();
+        $socialMedia = $this->socialMediaService->getSocialMedia();
         // dd($socialMedia);
         $heroResource = new HeroResource($hero, $socialMedia);
         return $this->successResponse($heroResource, 'Hero fetched successfully');
     }
 
     
-    public function update($id, HeroContentRequest $request)
+    public function update( HeroContentRequest $request)
     {
         try{
-            $hero = $this->heroService->getHeroContent($id);
-            $socialMedia = $this->socialMediaService->getSocialMedia($id);
+            $hero = $this->heroService->getHeroContent();
+            $socialMedia = $this->socialMediaService->getSocialMedia();
             $hero = $this->heroService->updateHeroContent($hero, $socialMedia, $request);
             // dd($hero);
-            return $this->successResponse(new HeroResource($hero), 'Hero updated successfully');
+            return $this->successResponse(new HeroResource($hero, $socialMedia), 'Hero updated successfully');
         }catch(\Exception $e){
             return $this->errorResponse($e->getMessage());
         }

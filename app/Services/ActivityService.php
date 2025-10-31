@@ -10,7 +10,7 @@ class ActivityService
     public function getActivities($data)
     {
         $perPage = $data->get('per_page', 10);
-        $activities = Activity::orderBy('updated_at', 'desc')->paginate($perPage);
+        $activities = Activity::orderBy('id', 'desc')->paginate($perPage);
         return $activities;
     }
     public function getActivity($id)

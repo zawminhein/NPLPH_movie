@@ -11,9 +11,9 @@ class HeroService
     {
         return HeroContent::first();
     }
-    public function getHeroContent($id)
+    public function getHeroContent()
     {
-        return HeroContent::find($id);
+        return HeroContent::first();
     }
 
     public function updateHeroContent($hero, $socialMedia, $request)
