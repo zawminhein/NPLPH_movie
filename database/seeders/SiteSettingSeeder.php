@@ -77,8 +77,8 @@ class SiteSettingSeeder extends Seeder
 
             [
                 'key' => 'activities_bg_image',
-                'description' => url('images/activities_section/Activity BG.png'),
-                'value' => 'activities-bg.jpg'
+                'description' => 'Activities Background Image',
+                'value' => url('images/activities_section/Activity BG.png')
             ]
         ];
 
