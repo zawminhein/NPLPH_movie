@@ -2,13 +2,14 @@
 
 namespace App\Http\Controllers\Api\v1;
 
-use App\Http\Controllers\Controller;
-use App\Http\Requests\RoleRequest;
-use App\Http\Resources\RoleResource;
+use Illuminate\Http\Request;
 use App\Services\RoleService;
 use App\Traits\ApiResponseTrait;
-use Illuminate\Http\Request;
 use Spatie\Permission\Models\Role;
+use App\Http\Controllers\Controller;
+use App\Http\Resources\RoleResource;
+use App\Http\Requests\StoreRoleRequest;
+use App\Http\Requests\UpdateRoleRequest;
 
 class RoleController extends Controller
 {
@@ -21,18 +22,18 @@ class RoleController extends Controller
         $this->roleService = $roleService;
     }
 
-    public function index()
+    public function index(Request $request)
     {
-        $roles = $this->roleService->getAllRoles();
+        $roles = $this->roleService->getAllRoles($request);
         $rolesResource = RoleResource::collection($roles);
         return $this->paginationResponse($rolesResource, 'Roles fetched successfully');
     }
 
 
-    public function store(RoleRequest $request)
+    public function store(StoreRoleRequest $request)
     {
         $data = $request->validated();
-        $role = $this->roleService->createRole($data);
+        $role = $this->roleService->storeRole($data);
         $roleResource = new RoleResource($role);
         return $this->successResponse($roleResource, 'Role created successfully', 201);
     }
@@ -44,13 +45,13 @@ class RoleController extends Controller
         return $this->successResponse($roleResource, 'Role details fetched successfully');
     }
 
-    public function update(RoleRequest $request, $id)
+    public function update(UpdateRoleRequest $request, $id)
     {
         $role = $this->roleService->getRole($id);
 
-        $data = $request->validated();
+        // $data = $request->validated();
 
-        $role = $this->roleService->updateRole($role, $data);
+        $role = $this->roleService->updateRole($role, $request);
         $roleResource = new RoleResource($role);
         return $this->successResponse($roleResource, 'Role updated successfully');
     }

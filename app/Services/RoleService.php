@@ -9,9 +9,10 @@ class RoleService
     /**
      * Get all roles with permissions
      */
-    public function getAllRoles()
+    public function getAllRoles($data)
     {
-        return Role::with('permissions')->paginate(10);
+        $perPage = $data->get('per_page', 10);
+        return Role::with('permissions')->orderByDesc('id')->paginate($perPage);
     }
 
     /**
@@ -25,13 +26,11 @@ class RoleService
     /**
      * Create a new role
      */
-    public function createRole($data)
+    public function storeRole($data)
     {
         $role = Role::create(['name' => $data['name'], 'guard_name' => 'web']);
 
-        if (!empty($data['permissions'])) {
-            $role->syncPermissions($data['permissions']);
-        }
+        $role->syncPermissions($data['permissions']);
 
         return $role;
     }
@@ -43,9 +42,7 @@ class RoleService
     {
         $role->update(['name' => $data['name']]);
 
-        if (!empty($data['permissions'])) {
-            $role->syncPermissions($data['permissions']);
-        }
+        $role->syncPermissions($data['permissions']);
 
         return $role;
     }
