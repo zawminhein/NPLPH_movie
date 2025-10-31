@@ -38,16 +38,24 @@ class ActivityController extends Controller
 
     public function store(ActivityRequest $request)
     {
-        $activity = $this->activityService->createActivity($request);
-        $activityResource = new ActivityResource($activity);
-        return $this->successResponse($activityResource, 'Activity created successfully', 201);
+        try{
+            $activity = $this->activityService->createActivity($request);
+            $activityResource = new ActivityResource($activity);
+            return $this->successResponse($activityResource, 'Activity created successfully', 201);
+        }catch(\Exception $e){
+            return $this->errorResponse($e->getMessage(), 'Something went wrong', 500);
+        }
     }
 
     public function update($id, ActivityRequest $request)
     {
-        $activity = $this->activityService->updateActivity($id, $request);
-        $activityResource = new ActivityResource($activity);
-        return $this->successResponse($activityResource, 'Activity updated successfully');
+        try { 
+            $activity = $this->activityService->updateActivity($id, $request);
+            $activityResource = new ActivityResource($activity);
+            return $this->successResponse($activityResource, 'Activity updated successfully');
+        } catch (\Exception $e) {
+            return $this->errorResponse($e->getMessage(), 'Something went wrong', 500);
+        }
     }
 
     public function destroy($id)
