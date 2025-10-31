@@ -1,11 +1,10 @@
 <?php
 
-use App\Http\Controllers\FE\AboutContentController;
-use App\Http\Controllers\FE\HeroContentController;
-use Illuminate\Support\Facades\Route;
-use Illuminate\Support\Facades\Session;
 use Inertia\Inertia;
 use App\Models\HeroContent;
+use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Session;
+use App\Http\Controllers\FE\HomeController;
 
 // Route::get('/', function () {
 //     return Inertia::render('Home');
@@ -25,5 +24,5 @@ Route::get('/set-locale/{locale}', function ($locale) {
 //     ]);
 // });
 
-Route::get('/', [HeroContentController::class, 'index']);
-Route::get('/home', [HeroContentController::class, 'index']);
+Route::get('/', [HomeController::class, 'index']);
+Route::get('/home', [HomeController::class, 'index']);
