@@ -29,8 +29,12 @@ class SocialMediaController extends Controller
 
     public function update( SocialMediaRequest $request)
     {
-        $socialMedia = $this->socialMediaService->updateSocialMedia($request->all());
-        $socialMediaResource = new SocialMediaResource($socialMedia);
-        return $this->successResponse($socialMediaResource, 'Social media updated successfully');
+        try{
+            $socialMedia = $this->socialMediaService->updateSocialMedia($request->all());
+            $socialMediaResource = new SocialMediaResource($socialMedia);
+            return $this->successResponse($socialMediaResource, 'Social media updated successfully');
+        } catch(\Exception $e){
+            return $this->errorResponse($e->getMessage());
+        }
     }
 }
