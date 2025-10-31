@@ -12,7 +12,7 @@ class SocialMediaService
         return $socialMedia;
     }
 
-    public function updateSocialMedia( $data)
+    public function updateSocialMedia($data)
     {
         $updateData = [
             'facebook_link' => $data['facebook_link'],

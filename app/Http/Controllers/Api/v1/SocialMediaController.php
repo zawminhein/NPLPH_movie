@@ -20,16 +20,16 @@ class SocialMediaController extends Controller
         $this->socialMediaService = $socialMediaService;
     }
 
-    public function show($id)
+    public function show()
     {
-        $socialMedia = $this->socialMediaService->getSocialMedia($id);
+        $socialMedia = $this->socialMediaService->getSocialMedia();
         $socialMediaResource = new SocialMediaResource($socialMedia);
         return $this->successResponse($socialMediaResource, 'Social media fetched successfully');
     }
 
-    public function update($id, SocialMediaRequest $request)
+    public function update( SocialMediaRequest $request)
     {
-        $socialMedia = $this->socialMediaService->updateSocialMedia($id, $request->all());
+        $socialMedia = $this->socialMediaService->updateSocialMedia($request->all());
         $socialMediaResource = new SocialMediaResource($socialMedia);
         return $this->successResponse($socialMediaResource, 'Social media updated successfully');
     }
