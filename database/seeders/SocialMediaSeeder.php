@@ -19,6 +19,13 @@ class SocialMediaSeeder extends Seeder
             'tiktok_link' => 'https://www.tiktok.com/',
         ];
 
+        $social = SocialMedia::first();
+
+        if($social) {
+            $social->update($social_media);
+            return;
+        }
+
         SocialMedia::firstOrCreate($social_media);
     }
 }

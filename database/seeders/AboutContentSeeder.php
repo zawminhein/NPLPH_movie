@@ -20,6 +20,13 @@ class AboutContentSeeder extends Seeder
             'image_url' => url('images/about_section/about_section_banner1.png'),
         ];
 
+        $about = AboutContent::first();
+
+        if($about) {
+            $about->update($about_content);
+            return;
+        }
+
         AboutContent::firstOrCreate($about_content);
     }
 }

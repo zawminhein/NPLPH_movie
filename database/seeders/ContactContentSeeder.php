@@ -21,6 +21,13 @@ class ContactContentSeeder extends Seeder
             'address' =>'23/5 Thirimingalar Ave, Yankin Township, Myanmar.',
             'image_url' => '',
         ];
+
+        $contact = ContactContent::first();
+
+        if($contact) {
+            $contact->update($contact_content);
+            return;
+        }
         ContactContent::firstOrCreate($contact_content);
     }
 }

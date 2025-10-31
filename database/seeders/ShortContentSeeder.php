@@ -26,6 +26,13 @@ class ShortContentSeeder extends Seeder
             'image_url' => url('images/shorts_section/shorts_section_banner.png'),
         ];
 
+        $short = ShortContent::first();
+
+        if ($short) {
+            $short->update($short_content);
+            return;
+        }
+
         ShortContent::firstOrCreate($short_content);
     }
 }

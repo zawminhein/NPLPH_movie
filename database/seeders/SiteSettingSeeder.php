@@ -72,7 +72,7 @@ class SiteSettingSeeder extends Seeder
             [
                 'key' => 'footer_bg_image',
                 'description' => 'Footer Background Image',
-                'value' => 'footer-bg.jpg'
+                'value' => url('images/')
             ],
 
             [
@@ -83,7 +83,14 @@ class SiteSettingSeeder extends Seeder
         ];
 
         foreach ($site_settings as $site_setting) {
-            SiteSetting::firstOrCreate($site_setting);
+            // Use the 'key' as the unique identifier
+            SiteSetting::updateOrCreate(
+                ['key' => $site_setting['key']], // condition
+                [
+                    'description' => $site_setting['description'],
+                    'value' => $site_setting['value'],
+                ] // fields to update or insert
+            );
         }
     }
 }

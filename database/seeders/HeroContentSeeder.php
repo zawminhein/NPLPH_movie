@@ -3,8 +3,9 @@
 namespace Database\Seeders;
 
 use App\Models\HeroContent;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
 class HeroContentSeeder extends Seeder
 {
@@ -13,9 +14,7 @@ class HeroContentSeeder extends Seeder
      */
     public function run(): void
     {
-
         $hero_content = [
-            'id' => 1,
             'short_desc_en' => '~ A handcrafted collection of cinematic masterpieces ~',
             'short_desc_mm' => 'အထိမ်းအမှတ် ရုပ်ရှင်',
             'long_desc_en' => "Discover timeless films, read passionate reviews, and dive deep into the art of cinema. Every movie tells a story, and we're here to share those stories with you.",
@@ -23,6 +22,13 @@ class HeroContentSeeder extends Seeder
             'image_url' => url('images/hero_section/hero_section_banner1.png'),
         ];
 
-        HeroContent::firstOrCreate($hero_content);
+        $hero = HeroContent::first();
+
+        if($hero) {
+            $hero->update($hero_content);
+            return;
+        } 
+
+        HeroContent::create($hero_content);
     }
 }

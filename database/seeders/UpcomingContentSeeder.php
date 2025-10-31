@@ -28,6 +28,13 @@ class UpcomingContentSeeder extends Seeder
             'bg_image_url' => url('images/upcoming_section/upcoming_banner1.png'),
         ];
 
+        $upcoming = UpcomingContent::first();
+
+        if ($upcoming) {
+            $upcoming->update($upcoming_content);
+            return;
+        }
+
         UpcomingContent::firstOrCreate($upcoming_content);
     }
 }
