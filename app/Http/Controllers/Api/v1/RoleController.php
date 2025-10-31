@@ -32,10 +32,14 @@ class RoleController extends Controller
 
     public function store(StoreRoleRequest $request)
     {
-        $data = $request->validated();
-        $role = $this->roleService->storeRole($data);
-        $roleResource = new RoleResource($role);
-        return $this->successResponse($roleResource, 'Role created successfully', 201);
+        try{
+            $data = $request->validated();
+            $role = $this->roleService->storeRole($data);
+            $roleResource = new RoleResource($role);
+            return $this->successResponse($roleResource, 'Role created successfully', 201);
+        }catch(\Exception $e){
+            return $this->errorResponse($e->getMessage());
+        }
     }
 
     public function show($id)
@@ -47,19 +51,25 @@ class RoleController extends Controller
 
     public function update(UpdateRoleRequest $request, $id)
     {
-        $role = $this->roleService->getRole($id);
-
-        // $data = $request->validated();
-
-        $role = $this->roleService->updateRole($role, $request);
-        $roleResource = new RoleResource($role);
-        return $this->successResponse($roleResource, 'Role updated successfully');
+        try{
+            $role = $this->roleService->getRole($id);
+            $role = $this->roleService->updateRole($role, $request);
+            $roleResource = new RoleResource($role);
+            return $this->successResponse($roleResource, 'Role updated successfully');
+        }catch(\Exception $e){
+            return $this->errorResponse($e->getMessage());
+        }
+       
     }
 
     public function destroy($id)
     {
-        $role = $this->roleService->getRole($id);
-        $this->roleService->deleteRole($role);
-        return $this->successResponse('message', 'Role deleted successfully');
+        try{
+            $role = $this->roleService->getRole($id);
+            $this->roleService->deleteRole($role);
+            return $this->successResponse('message', 'Role deleted successfully');
+        }catch(\Exception $e){
+            return $this->errorResponse($e->getMessage());
+        }
     }
 }

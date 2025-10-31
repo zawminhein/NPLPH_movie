@@ -3,20 +3,22 @@
 namespace App\Services;
 
 use App\Models\User;
+use Spatie\Permission\Models\Role;
 use Illuminate\Support\Facades\Hash;
 
 class UserService
 {
-    public function getAllUsers()
+    public function getAllUsers($data)
     {
-        return User::with('roles')->orderBy('id', 'desc')->paginate(10);
+        $perPage = $data->get('per_page', 10);
+        return User::with('roles')->orderBy('id', 'desc')->paginate($perPage);
     }
     public function getUser($id)
     {
         return User::with('roles')->find($id);
     }
 
-    public function createUser($data)
+    public function storeUser($data)
     {
         $user = User::create([
             'name' => $data['name'],
@@ -24,9 +26,11 @@ class UserService
             'password' => Hash::make($data['password']),
         ]);
 
-        if(!empty($data['role'])) {
-            $user->assignRole($data['role']);
+        $role = Role::find($data['role']);
+        if(!$role){
+            throw new \Exception('Role not found');
         }
+        $user->assignRole($role);
 
         return $user;
     }
@@ -35,11 +39,8 @@ class UserService
     {
         $updateData = [
             'name' => $data['name'],
+            'email' => $data['email'],
         ];
-
-        if(!empty($data['email'])) {
-            $updateData['email'] = $data['email'];
-        }
 
         if(!empty($data['password'])){
             $updateData['password'] = Hash::make($data['password']);
@@ -47,9 +48,12 @@ class UserService
 
         $user->update($updateData);
 
-        if(!empty($data['role'])) {
-            $user->syncRoles([$data['role']]);
+        $role = Role::find($data['role']);
+        if(!$role){
+            throw new \Exception('Role not found');
         }
+        
+        $user->syncRoles($role);
 
         return $user;
     }
