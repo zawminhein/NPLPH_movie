@@ -55,9 +55,9 @@ Route::prefix('v1')->group(function () {
         Route::put('/heros', [HeroController::class, 'update'])->middleware('permission:hero_update');
 
         // AboutContent routes
-        Route::get('/abouts/{id}', [AboutController::class, 'show'])->middleware('permission:about_view');
-        Route::put('/abouts/{id}', [AboutController::class, 'update'])->middleware('permission:about_update');
-        Route::post('/abouts/{id}/content-upload', [AboutController::class, 'contentUpload'])->middleware('permission:about_update');
+        Route::get('/abouts', [AboutController::class, 'show'])->middleware('permission:about_view');
+        Route::put('/abouts', [AboutController::class, 'update'])->middleware('permission:about_update');
+        Route::post('/abouts/content-upload', [AboutController::class, 'contentUpload'])->middleware('permission:about_update');
 
         //ShortContent routes
         Route::get('/shorts/{id}', [ShortController::class, 'show'])->middleware('permission:short_view');

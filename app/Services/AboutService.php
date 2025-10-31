@@ -13,9 +13,9 @@ class AboutService
         $about = AboutContent::first();
         return $about;
     }
-    public function getAboutContent($id)
+    public function getAboutContent()
     {
-        $about = AboutContent::find($id);
+        $about = AboutContent::first();
         // dd($about);
         return $about;
     }
@@ -47,13 +47,15 @@ class AboutService
         return $about;
     }
 
-    public function updateAboutImages($request, $about_id)
+    public function updateAboutImages($request)
     {
         // Validate images
         $request->validated();
 
+        $about_id = AboutContent::first()->id;
+
         // Delete existing contents and files
-        $existingContents = Content::where('type_id', $about_id)
+        $existingContents = Content::where('type_id')
             ->where('type', AboutContent::class)
             ->get();
 

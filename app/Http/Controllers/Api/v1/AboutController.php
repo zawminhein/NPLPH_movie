@@ -21,24 +21,28 @@ class AboutController extends Controller
     {
         $this->aboutService = $aboutService;
     }
-    public function show($id)
+    public function show()
     {
-        $about = $this->aboutService->getAboutContent($id);
+        $about = $this->aboutService->getAboutContent();
         $aboutResource = new AboutResource($about);
         return $this->successResponse($aboutResource, 'About fetched successfully');
     }
 
-    public function update($id, AboutContentRequest $request)
+    public function update( AboutContentRequest $request)
     {
-        $about = $this->aboutService->getAboutContent($id);
-        $about = $this->aboutService->updateAboutContent($about, $request);
-        $aboutResource = new AboutResource($about);
-        return $this->successResponse($aboutResource, 'About updated successfully');
+        try{
+            $about = $this->aboutService->getAboutContent();
+            $about = $this->aboutService->updateAboutContent($about, $request);
+            $aboutResource = new AboutResource($about);
+            return $this->successResponse($aboutResource, 'About updated successfully');
+        } catch(\Exception $e){
+            return $this->errorResponse($e->getMessage());
+        }
     }
 
-    public function contentUpload(ContentUploadRequest $request, $about_id)
+    public function contentUpload(ContentUploadRequest $request)
     {
-        $uploaded = $this->aboutService->updateAboutImages($request, $about_id);
+        $uploaded = $this->aboutService->updateAboutImages($request);
         return $this->successResponse($uploaded, 'Images uploaded and contents updated successfully.');
     }
 }
