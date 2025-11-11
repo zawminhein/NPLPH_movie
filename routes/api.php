@@ -29,6 +29,12 @@ RateLimiter::for('api', function (Request $request) {
 //     ]);
 // });
 Route::prefix('v1')->group(function () {
+    Route::get('/', function () {
+        return response()->json([
+            'message' => 'API is running',
+            'version' => 'v1',
+        ]);
+    });
     // Public route
     Route::post('/login', [AuthController::class, 'login']);
 
@@ -88,6 +94,10 @@ Route::prefix('v1')->group(function () {
 
         Route::get('/permissions-for-role-create', [PermissionController::class, 'index'])->middleware('permission:role_create');
     });
+});
+
+Route::get('test',function(){
+    return 'test';
 });
 
 Route::middleware('auth:sanctum')->group(function () {

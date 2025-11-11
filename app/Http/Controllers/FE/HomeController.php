@@ -25,8 +25,10 @@ class HomeController extends Controller
     {
         $hero = $this->heroService->getAllHeroContent();
         $about = $this->aboutService->getAboutContent();
-        $aboutResource = new AboutResource($about);
-        // dd($hero);
+        // dd( $about);
+        $aboutResource = (new AboutResource($about))->resolve();
+        $aboutResource['image_url'] = $aboutResource['image_url']->resolve();
+        // dd($aboutResource);
         return Inertia::render('Home', [
             'translations' => trans('messages'),
             // dd(trans('messages')),

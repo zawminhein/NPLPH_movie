@@ -1,34 +1,41 @@
 import React, { useState, useEffect } from 'react';
 
 const About = ({ translations, aboutContent, locale }) => {
-  const images = [
-    '/images/hero_section/hero_section_banner1.png',
-    '/images/about_section/Aboutus BG.png',
-    '/images/hero_section/hero_section_banner1.png',
-  ];
+  // console.log(aboutContent.image_url);
+  
+  // ✅ Safely get images (handles both resource collection or array)
+  const images = aboutContent.image_url?.data || aboutContent.image_url || [];
+
+  const title = translations.about_section_title;
+  const desc = locale === "mm" ? aboutContent.desc_mm : aboutContent.desc_en;
 
   const [currentIndex, setCurrentIndex] = useState(0);
 
-  // Handlers for buttons
+  const bgImage = aboutContent.bg_image_url;
+
+  // ✅ Handlers for buttons
   const handlePrev = () => {
+    if (images.length === 0) return;
     setCurrentIndex((prevIndex) =>
       prevIndex === 0 ? images.length - 1 : prevIndex - 1
     );
   };
 
   const handleNext = () => {
+    if (images.length === 0) return;
     setCurrentIndex((prevIndex) =>
       prevIndex === images.length - 1 ? 0 : prevIndex + 1
     );
   };
 
-  // Optional auto-slide (every 5s)
+  // ✅ Optional auto-slide (every 5s)
   useEffect(() => {
+    if (images.length === 0) return;
     const interval = setInterval(() => {
-      handleNext();
+      setCurrentIndex((prev) => (prev + 1) % images.length);
     }, 5000);
     return () => clearInterval(interval);
-  }, []);
+  }, [images]);
 
   return (
     <div>
@@ -39,7 +46,7 @@ const About = ({ translations, aboutContent, locale }) => {
         {/* Background Image */}
         <div className="absolute inset-0">
           <img
-            src="/images/about_section/Aboutus BG.png"
+            src={bgImage}
             className="w-full h-full object-cover"
             alt="About background"
           />
@@ -50,16 +57,9 @@ const About = ({ translations, aboutContent, locale }) => {
           {/* Text Section */}
           <div>
             <h3 className="font text-[36px] font-bold mb-4 text-[#E56B60]">
-              {}
+              {title}
             </h3>
-            <p className="text-dark-100 leading-relaxed">
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Molestiae
-              eveniet ad recusandae quasi facilis similique iste, nostrum, labore
-              consectetur aliquam repudiandae nesciunt ullam saepe cumque? Eum,
-              nihil enim? Ut impedit illo, voluptate odio quis aliquam dolor
-              facilis est laborum quam maiores atque nihil natus aspernatur velit
-              minus voluptatum.
-            </p>
+            <p className="text-dark-100 leading-relaxed">{desc}</p>
           </div>
 
           {/* Image Slideshow Section */}
@@ -72,12 +72,12 @@ const About = ({ translations, aboutContent, locale }) => {
                   transform: `translateX(-${currentIndex * 100}%)`,
                 }}
               >
-                {images.map((src, index) => (
+                {images.map((img, index) => (
                   <img
                     key={index}
-                    src={src}
+                    src={img.path}
+                    alt={`Image ${index}`}
                     className="w-full flex-shrink-0"
-                    alt={`Slide ${index + 1}`}
                   />
                 ))}
               </div>
@@ -111,8 +111,8 @@ const About = ({ translations, aboutContent, locale }) => {
                     onClick={() => setCurrentIndex(index)}
                     className={`w-3 h-3 rounded-full transition-all ${
                       index === currentIndex
-                        ? 'bg-red-500 scale-125'
-                        : 'bg-red-300'
+                        ? "bg-red-500 scale-125"
+                        : "bg-red-300"
                     }`}
                   ></button>
                 ))}

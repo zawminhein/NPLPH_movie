@@ -4,6 +4,8 @@ import { Link } from '@inertiajs/react'
 const Hero = ({ translations, heroContent, locale }) => {
   // Determine background image: use hero image if exists, otherwise fallback
   const bgImage = heroContent.image_url;
+  // console.log(bgImage);
+  
 
   if (!heroContent) {
     return (

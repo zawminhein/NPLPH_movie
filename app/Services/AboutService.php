@@ -43,6 +43,7 @@ class AboutService
         } else {
             unset($updateData['image_url']);
         }
+        // dd($updateData);
         $about->update($updateData);
         return $about;
     }

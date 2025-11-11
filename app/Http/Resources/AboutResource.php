@@ -18,6 +18,7 @@ class AboutResource extends JsonResource
         $content = Content::where('type_id', $this->id)
             ->where('type', 'App\\Models\\AboutContent')
             ->get();
+        // dd($content);
 
         return [
             'id' => $this->id,
