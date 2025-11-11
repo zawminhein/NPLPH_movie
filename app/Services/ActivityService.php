@@ -3,10 +3,16 @@
 namespace App\Services;
 
 use App\Models\Activity;
+use App\Models\SiteSetting;
 use Illuminate\Support\Facades\Storage;
 
 class ActivityService
 {
+    public function getAllActivities()
+    {
+        $activities = Activity::all();
+        return $activities;
+    }
     public function getActivities($data)
     {
         $perPage = $data->get('per_page', 10);

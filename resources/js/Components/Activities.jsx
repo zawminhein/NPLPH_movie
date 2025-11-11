@@ -1,7 +1,11 @@
 import React from "react";
 import { useState } from "react";
 
-const Activities = () => {
+const Activities = ({translations, activityContent, activityBgImage, locale}) => {
+    console.log(translations);
+    const title = translations.activity_section_main_title;
+    const subTitle = translations.activity_section_sub_title;
+    
     const slides = [
         { src: "images/activities_section/activity1.jpg", alt: "Activity 1", title: "Blog title heading will go here" },
         { src: "images/activities_section/activity2.jpg", alt: "Activity 1", title: "Blog title heading will go here" },
@@ -31,7 +35,7 @@ const Activities = () => {
             >
                 <div className="absolute inset-0">
                     <img
-                        src="images/activities_section/Activity BG.png"
+                        src={activityBgImage}
                         className="w-full h-full object-cover"
                         alt="Activities background"
                     />
@@ -40,11 +44,11 @@ const Activities = () => {
                 {/* Content */}
                 <div className="relative z-10 mx-6 md:ms-8 ">
                     <h3 className="text-[48px] font font-bold mb-14 text-left text-[#F24F00]">
-                        Our Activities
+                        {title}
                     </h3>
 
                     <h4 className="text-xl font-semibold mb-4 text-left text-black">
-                        Featured Activities
+                        {subTitle}
                     </h4>
 
                     <div className="grid lg:grid-cols-2 gap-8">

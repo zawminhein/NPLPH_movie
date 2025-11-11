@@ -7,16 +7,17 @@ import Upcoming from '../Components/Upcoming'
 import Activities from '../Components/Activities'
 import Contact from '../Components/Contact'
 
-export default function Home({ translations, about_translations, heroContent, aboutContent, locale }) {
-  // console.log('Home props:', { translations, about_translations , aboutContent, heroContent, locale });
-
+export default function Home({ 
+    translations, heroContent, aboutContent, shortContent, upcomingContent, activityContent, activityBgImage, locale 
+  }) 
+{
   return (
     <AppLayouts>
       <Hero translations={translations} heroContent={heroContent} locale={locale} />
       <About translations={translations} aboutContent={aboutContent} locale={locale} />
-      <Shorts translations={translations} locale={locale} />
-      <Upcoming translations={translations} locale={locale} />
-      <Activities translations={translations} locale={locale} />
+      <Shorts translations={translations} shortContent={shortContent} locale={locale} />
+      <Upcoming translations={translations} upcomingContent={upcomingContent} locale={locale} />
+      <Activities translations={translations} activityContent={activityContent} activityBgImage={activityBgImage} locale={locale} />
       <Contact translations={translations} locale={locale} />
     </AppLayouts>
   )

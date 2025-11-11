@@ -24,7 +24,7 @@ class UpcomingContentSeeder extends Seeder
                                 developers as they discuss the latest Preludes updates and
                                 beyond.',
             'long_desc_mm' => 'ရုပ်ရှင် သို့မဟုတ် လှုပ်ရှားမှုရုပ်ပုံဟုလည်းသိကြသော ရုပ်ရှင်သည် ဇာတ်လမ်းများပြောပြရန်၊ စိတ်ကူးများပေးပို့ရန် သို့မဟုတ် ဖျော်ဖြေမှု သို့မဟုတ် အနုပညာဆိုင်ရာဖော်ပြမှုများအတွက် စိတ်ခံစားမှုများကို လှုံ့ဆော်ပေးရန်အတွက် ရွေ့လျားနေသောရုပ်ပုံများနှင့် အသံများကို အသုံးပြုသည့် ရုပ်ပုံများနှင့် အသံဆက်သွယ်မှုပုံစံတစ်ခုဖြစ်သည်။',
-            'image_url' => url('images/upcoming_section/upcoming_banner2.png'),
+            'image_url' => url('images/upcoming_section/upcoming_banner2.jpg'),
             'bg_image_url' => url('images/upcoming_section/upcoming_banner1.png'),
         ];
 
