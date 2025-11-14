@@ -19,7 +19,7 @@ class ContactContentSeeder extends Seeder
             'mail' => 'ngarpyanlarpyihyae@gmail.com',
             'phone' => '+959 432225112',
             'address' =>'23/5 Thirimingalar Ave, Yankin Township, Myanmar.',
-            'image_url' => '',
+            'image_url' => url('images/contact_section/Contact Us.png'),
         ];
 
         $contact = ContactContent::first();

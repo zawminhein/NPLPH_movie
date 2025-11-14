@@ -7,9 +7,9 @@ use Illuminate\Support\Facades\Storage;
 
 class ContactService
 {
-    public function getContactContent($id)
+    public function getContactContent()
     {
-        $contact = ContactContent::find($id);
+        $contact = ContactContent::first();
         return $contact;
     }
 

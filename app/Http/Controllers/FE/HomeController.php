@@ -7,10 +7,10 @@ use App\Http\Resources\AboutResource;
 use App\Models\SiteSetting;
 use App\Services\AboutService;
 use App\Services\ActivityService;
+use App\Services\ContactService;
 use App\Services\HeroService;
 use App\Services\ShortService;
 use App\Services\UpcomingService;
-use Illuminate\Http\Request;
 use Inertia\Inertia;
 
 class HomeController extends Controller
@@ -20,9 +20,10 @@ class HomeController extends Controller
     protected $shortService;
     protected $upcomingService;
     protected $activityService;
+    protected $contactService;
 
     public function __construct(
-        HeroService $heroService, AboutService $aboutService, ShortService  $shortService, UpcomingService $upcomingService, ActivityService $activityService
+        HeroService $heroService, AboutService $aboutService, ShortService  $shortService, UpcomingService $upcomingService, ActivityService $activityService, ContactService $contactService,
     )
     {
         $this->heroService = $heroService;
@@ -30,6 +31,7 @@ class HomeController extends Controller
         $this->shortService = $shortService;
         $this->upcomingService = $upcomingService;
         $this->activityService = $activityService;
+        $this->contactService = $contactService;
     }
 
 
@@ -43,6 +45,8 @@ class HomeController extends Controller
         $upcoming = $this->upcomingService->getUpcomingContent();
         $activity = $this->activityService->getAllActivities();
         $activityBgImage = SiteSetting::where('key', 'activities_bg_image')->value('value');
+        $footerBgImage = SiteSetting::where('key', 'footer_bg_image')->value('value');
+        $contact = $this->contactService->getContactContent();
 
         return Inertia::render('Home', [
             'translations' => trans('messages'),
@@ -52,6 +56,8 @@ class HomeController extends Controller
             'upcomingContent' => $upcoming,
             'activityContent' => $activity,
             'activityBgImage' => $activityBgImage,
+            'contactContent' => $contact,
+            'footerBgImage' => $footerBgImage,
             'locale' => app()->getLocale()
         ]);
     }

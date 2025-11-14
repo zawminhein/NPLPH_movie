@@ -1,8 +1,9 @@
 
 import { Link } from '@inertiajs/react'
+import { useTranslation } from '../Contexts/TranslationContext';
 
-const Hero = ({ translations, heroContent, locale }) => {
-  // Determine background image: use hero image if exists, otherwise fallback
+const Hero = ({ heroContent }) => {
+  const { translations, locale } = useTranslation();
   const bgImage = heroContent.image_url;
   // console.log(bgImage);
   

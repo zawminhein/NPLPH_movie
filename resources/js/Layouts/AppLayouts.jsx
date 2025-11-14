@@ -1,16 +1,19 @@
 import React from 'react'
 import Header from '../Components/Header'
 import Footer from '../Components/Footer'
+import { TranslationProvider } from '../Contexts/TranslationContext';
 
-const AppLayouts = ({children}) => {
+const AppLayouts = ({children, footerBgImage, translations, locale}) => {
+  console.log(translations);
+  
   return (
-    <div>
+    <TranslationProvider translations={translations} locale={locale}>
+      <div>
         <Header />
-        <main>
-            {children}
-        </main>
-        <Footer />
-    </div>
+        <main>{children}</main>
+        <Footer footerBgImage={footerBgImage} />
+      </div>
+    </TranslationProvider>
   )
 }
 

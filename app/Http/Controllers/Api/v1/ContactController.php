@@ -21,16 +21,16 @@ class ContactController extends Controller
         $this->contactService = $contactService;
     }
 
-    public function show($id)
+    public function show()
     {
-        $contact = $this->contactService->getContactContent($id);
+        $contact = $this->contactService->getContactContent();
         $contactResource = new ContactResource($contact);
         return $this->successResponse($contactResource, 'Contact fetched successfully');
     }
 
-    public function update($id, ContactRequest $request)
+    public function update( ContactRequest $request)
     {
-        $contact = $this->contactService->getContactContent($id);
+        $contact = $this->contactService->getContactContent();
         $contact = $this->contactService->updateContactContent($contact, $request);
         $contactResource = new ContactResource($contact);
         return $this->successResponse($contactResource, 'Contact updated successfully');

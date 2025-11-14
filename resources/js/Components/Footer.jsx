@@ -1,12 +1,12 @@
 import React from 'react'
 
-const Footer = () => {
+const Footer = ({footerBgImage}) => {
   return (
     <div>
       <footer className="relative py-10 px-6 text-[#ffdca8]">
             {/* <!-- Background image --> */}
             <div className="absolute inset-0">
-                <img src="images/footer_section/Footer.png" alt="Footer background" className="w-full h-full object-cover"/>
+                <img src={footerBgImage} alt="Footer background" className="w-full h-full object-cover"/>
             </div>
 
             {/* <!-- Content wrapper --> */}
